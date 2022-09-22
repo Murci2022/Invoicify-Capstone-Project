@@ -8,18 +8,17 @@ export default function FormPage() {
 	return (
 		<div>
 			{invoice ? (
-				<form>
-					<ul>
-						<li>{name}</li>
-						<li>{amount}</li>
-					</ul>
-				</form>
+				<ul>
+					<li>{name}</li>
+					<li>{amount}</li>
+				</ul>
 			) : (
-				<div>
+				<form>
 					<label htmlFor="name">Name</label>
 					<input
 						type="text"
 						id="name"
+						name="name"
 						placeholder="John Dylen"
 						value={name}
 						onChange={() => setName(event.target.value)}
@@ -28,6 +27,7 @@ export default function FormPage() {
 					<input
 						type="text"
 						id="amount"
+						name="amount"
 						placeholder="amount in EUR"
 						value={amount}
 						onChange={() => setAmount(event.target.value)}
@@ -35,7 +35,7 @@ export default function FormPage() {
 					<button onClick={() => setInvoice(true)} type="submit">
 						Submit
 					</button>
-				</div>
+				</form>
 			)}
 		</div>
 	);
