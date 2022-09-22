@@ -9,7 +9,8 @@ export default function HomePage() {
 				<title key="title">My Project</title>
 				<meta key="description" name="description" content="This is my project" />
 			</Head>
-			<h1>Home</h1>
+
+			<h1>Welcome to Invoicify!!!!</h1>
 		</Layout>
 	);
 }
