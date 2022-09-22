@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-export default function FormPage() {
+export default function CreateInvoice() {
 	const [invoice, setInvoice] = useState(false);
 	const [name, setName] = useState('');
 	const [amount, setAmount] = useState('');
@@ -8,18 +8,22 @@ export default function FormPage() {
 	return (
 		<div>
 			{invoice ? (
-				<ul>
-					<li>{name}</li>
-					<li>{amount}</li>
-				</ul>
+				<div>
+					<h1>Your Invoice</h1>
+					<ul>
+						<li>{name}</li>
+						<li>{amount}</li>
+					</ul>
+				</div>
 			) : (
 				<form>
+					<h1>Create Invoice</h1>
 					<label htmlFor="name">Name</label>
 					<input
 						type="text"
 						id="name"
 						name="name"
-						placeholder="John Dylen"
+						placeholder="e.g. John Dylen"
 						value={name}
 						onChange={() => setName(event.target.value)}
 					/>
