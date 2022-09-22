@@ -6,7 +6,8 @@ export default function Header() {
 			<nav>
 				<Link href="/">Home</Link>
 				<br />
-				<Link href="/main">Form</Link>
+				<Link href="/createInvoice">Create Invoice</Link>
+
 				<br />
 
 				<Link href="/about">About me</Link>
