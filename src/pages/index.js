@@ -14,6 +14,5 @@ export default function HomePage() {
 				<h1>Welcome to Invoicify!!!!</h1>
 			</Layout>
 		</>
-
 	);
 }
