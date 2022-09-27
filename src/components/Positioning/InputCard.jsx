@@ -5,8 +5,8 @@ const InputCard = styled.div`
 	flex-direction: column;
 	margin: 20px;
 	padding: 5px;
-	list-style: none;
 	border: 1px solid black;
+	list-style: none;
 `;
 
 export default InputCard;
