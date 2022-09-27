@@ -1,18 +1,18 @@
 import Link from 'next/link';
 
-import InvoiceHead from './Positioning/InvoiceHead';
+import Wrapper from './Positioning/Wrapper';
 
 export default function Header() {
 	return (
 		<header>
 			<nav>
-				<InvoiceHead>
+				<Wrapper>
 					<Link href="/">Home</Link>
 
 					<Link href="/createInvoice">Create Invoice</Link>
 
 					<Link href="/about">About me</Link>
-				</InvoiceHead>
+				</Wrapper>
 			</nav>
 		</header>
 	);

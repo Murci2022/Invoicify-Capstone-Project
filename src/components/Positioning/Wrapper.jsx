@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-const InvoiceHead = styled.div`
-	border: 1px solid black;
+const Wrapper = styled.div`
 	display: flex;
 	justify-content: space-around;
+	border: 1px solid black;
 `;
 
-export default InvoiceHead;
+export default Wrapper;

@@ -3,7 +3,7 @@ import {useState} from 'react';
 import StyledButton from '../components/Button/styled';
 import Header from '../components/Header';
 import InputCard from '../components/Positioning/InputCard';
-import InvoiceHead from '../components/Positioning/InvoiceHead';
+import Wrapper from '../components/Positioning/Wrapper';
 
 export default function CreateInvoice() {
 	const [invoice, setInvoice] = useState(false);
@@ -33,41 +33,40 @@ export default function CreateInvoice() {
 		<div>
 			{invoice ? (
 				<div>
-					<Header />
-					<InvoiceHead>
+					<Wrapper>
 						<h4>Logo</h4>
 						<h4>InvoiceNr.</h4>
-					</InvoiceHead>
-					<InvoiceHead>
+					</Wrapper>
+					<Wrapper>
 						<InputCard>
-							<div>Name: {name}</div>
-							<div>Adress: {street}</div>
-							<div>City: {city}</div>
-							<div>TAX ID: {taxID}</div>
+							<li>Name: {name}</li>
+							<li>Adress: {street}</li>
+							<li>City: {city}</li>
+							<li>TAX ID: {taxID}</li>
 						</InputCard>
 						<InputCard>
-							<div>Name:{recipientName}</div>
-							<div>Adress:{recipientStreet}</div>
-							<div>City:{recipientCity}</div>
+							<li>Name:{recipientName}</li>
+							<li>Adress:{recipientStreet}</li>
+							<li>City:{recipientCity}</li>
 						</InputCard>
-					</InvoiceHead>
-					<InvoiceHead>
+					</Wrapper>
+					<Wrapper>
 						<div>Service:</div>
 
 						<div>price (net):</div>
 
 						<div>QTY:</div>
-					</InvoiceHead>
-					<InvoiceHead>
+					</Wrapper>
+					<Wrapper>
 						<div>-{service}</div>
 						<div>{amount} EUR</div>
 						<div>{quantity}</div>
-					</InvoiceHead>
+					</Wrapper>
 					<h5>Total: {subTotal} EUR (net)</h5>
 					<h5>VAT: {VAT} EUR</h5>
 					<h5>Grand Total: {grandTotal} EUR</h5>
 
-					<button onClick={() => setInvoice(false)}>Edit</button>
+					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 				</div>
 			) : (
 				<form>
