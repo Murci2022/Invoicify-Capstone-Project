@@ -25,10 +25,6 @@ export default function CreateInvoice() {
 	const VAT = subTotal * 0.19;
 	const grandTotal = subTotal + VAT;
 
-	/* const subtotal
-	const grandtotal
-	*/
-
 	return (
 		<div>
 			{invoice ? (

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const InputCard = styled.div`
+const InputCard = styled.ul`
 	display: flex;
 	flex-direction: column;
 	margin: 20px;
