@@ -144,7 +144,12 @@ export default function CreateInvoice() {
 					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 				</div>
 			) : (
-				<form>
+				<form
+					onSubmit={event => {
+						event.preventDefault();
+						setInvoice(true);
+					}}
+				>
 					<Header />
 
 					{/* --------------User Data-------------- */}
@@ -332,9 +337,7 @@ item or service:__________________________________________ */}
 					<h1>
 						<button onClick={() => handleAddForms()}>Add more Service/Item</button>
 					</h1>
-					<StyledButton onClick={() => setInvoice(true)} type="submit">
-						Submit
-					</StyledButton>
+					<StyledButton type="submit">Submit</StyledButton>
 				</form>
 			)}
 		</div>
