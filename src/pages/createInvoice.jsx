@@ -40,8 +40,8 @@ export default function CreateInvoice() {
 		const values = [...allForms];
 		values.push({
 			description: '',
-			price: '',
-			quantity: '',
+			price: 0,
+			quantity: 1,
 		});
 		setAllForms(values);
 	};
@@ -290,7 +290,9 @@ item or service:__________________________________________ */}
 item or service:__________________________________________ */}
 
 					<h1>
-						<button onClick={() => handleAddForms()}>Add more Service/Item</button>
+						<button type="button" onClick={() => handleAddForms()}>
+							Add more Service/Item
+						</button>
 					</h1>
 					<StyledButton type="submit">Submit</StyledButton>
 				</form>
