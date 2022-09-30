@@ -34,11 +34,8 @@ export default function CreateInvoice() {
 	//#endregion
 
 	/* ____________________________Dynamic Form_________________ */
-	/* ___________________________ Dynamic Form_________________ */
-	/* ____________________________Dynamic Form_________________ */
-	/* ____________________________Dynamic Form_________________ */
 	const [allForms, setAllForms] = useState([{description: '', price: '', quantity: ''}]);
-
+	console.log('!!', allForms);
 	const handleAddForms = () => {
 		event.preventDefault();
 		const values = [...allForms];
@@ -50,10 +47,14 @@ export default function CreateInvoice() {
 		setAllForms(values);
 	};
 
-	const handleInputChange = (index, event) => {
+	const handleInputChange = (index, event, type = 'string') => {
 		const values = [...allForms];
 		const updatedValue = event.target.name;
-		values[index][updatedValue] = event.target.value;
+		if (type === 'number') {
+			values[index][updatedValue] = Number.parseFloat(event.target.value);
+		} else {
+			values[index][updatedValue] = event.target.value;
+		}
 
 		setAllForms(values);
 		console.log(values);
@@ -64,6 +65,11 @@ export default function CreateInvoice() {
 		values.splice(index, 1);
 		setAllForms(values);
 	};
+
+	const totalPrice = allForms.reduce((total, all) => {
+		return total + all.price;
+	}, 0);
+	console.log(totalPrice);
 
 	/* __________________________End Dynamic Form________________________ */
 
@@ -95,6 +101,7 @@ export default function CreateInvoice() {
 						<li>price (net):</li>
 
 						<li>QTY:</li>
+						<div>Subtotal</div>
 					</Wrapper>
 
 					{/* __________________________________________________________________________________ */}
@@ -111,14 +118,15 @@ export default function CreateInvoice() {
 					{/* __________________________________________________________________________________ */}
 					<>
 						{allForms.map((allForm, index) => (
-							<>
-								<Wrapper key={index}>
-									<InvoiceServiceList>{index + 1}</InvoiceServiceList>
-									<InvoiceServiceList>{allForm.description}</InvoiceServiceList>
-									<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
-									<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
-								</Wrapper>
-							</>
+							<Wrapper key={index}>
+								<InvoiceServiceList>{index + 1}</InvoiceServiceList>
+								<InvoiceServiceList>{allForm.description}</InvoiceServiceList>
+								<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
+								<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
+								<InvoiceServiceList>
+									{allForm.price * allForm.quantity}EUR
+								</InvoiceServiceList>
+							</Wrapper>
 						))}
 					</>
 
@@ -127,6 +135,7 @@ export default function CreateInvoice() {
 						<div>{amount}</div>
 						<div>{quantity}</div>
 					</Wrapper>
+
 					<h2>Old Static Form Results</h2>
 					<h5>Total: {subTotal} EUR (net)</h5>
 					<h5>VAT: {VAT} EUR</h5>
@@ -253,75 +262,61 @@ item or service:__________________________________________ */}
 item or service:__________________________________________ */}
 					<article>
 						<div>
-							{allForms.length > 0 && (
-								<>
-									{allForms.map((form, index) => (
-										<>
-											<InputCard>
-												<Service>
-													<h4>Your service</h4>
-													<h4>{index + 1}</h4>
-												</Service>
-												<div>
-													<label htmlFor="description">
-														Description of your service/Item
-													</label>
+							{allForms.map((form, index) => (
+								<InputCard key={index}>
+									<Service>
+										<h4>Your service</h4>
+										<h4>{index + 1}</h4>
+									</Service>
+									<div>
+										<label htmlFor="description">
+											Description of your service/Item
+										</label>
 
-													<div key={index}>
-														<InputField
-															type="text"
-															name="description"
-															placeholder="Enter description"
-															value={form.description}
-															onChange={event =>
-																handleInputChange(index, event)
-															}
-														/>
-													</div>
+										<div key={index}>
+											<InputField
+												type="text"
+												name="description"
+												placeholder="Enter description"
+												value={form.description}
+												onChange={event => handleInputChange(index, event)}
+											/>
+										</div>
 
-													<div>
-														<li key={index}>
-															<label htmlFor="description">
-																Price
-															</label>
-															<InputField
-																type="text"
-																name="price"
-																placeholder="Enter price"
-																value={form.price}
-																onChange={event =>
-																	handleInputChange(index, event)
-																}
-															/>
-														</li>
-													</div>
-													<div>
-														<li key={index}>
-															<label htmlFor="description">
-																Quantity
-															</label>
-															<InputField
-																type="text"
-																name="quantity"
-																placeholder="Enter quantity"
-																value={form.quantity}
-																onChange={event =>
-																	handleInputChange(index, event)
-																}
-															/>
-														</li>
-													</div>
-												</div>
+										<div>
+											<li key={index}>
+												<label htmlFor="description">Price</label>
+												<InputField
+													type="text"
+													name="price"
+													placeholder="Enter price"
+													value={form.price}
+													onChange={event =>
+														handleInputChange(index, event, 'number')
+													}
+												/>
+											</li>
+										</div>
+										<div>
+											<li key={index}>
+												<label htmlFor="description">Quantity</label>
+												<InputField
+													type="text"
+													name="quantity"
+													placeholder="Enter quantity"
+													value={form.quantity}
+													onChange={event =>
+														handleInputChange(index, event, 'number')
+													}
+												/>
+											</li>
+										</div>
+									</div>
 
-												<button onClick={() => handleRemoveCard(index)}>
-													Cancel
-												</button>
-											</InputCard>
-										</>
-									))}
-								</>
-							)}
-						</div>{' '}
+									<button onClick={() => handleRemoveCard(index)}>Cancel</button>
+								</InputCard>
+							))}
+						</div>
 					</article>
 					{/* ___________________________details about your 
 item or service:__________________________________________ */}
