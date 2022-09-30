@@ -34,10 +34,9 @@ export default function CreateInvoice() {
 	//#endregion
 
 	/* ____________________________Dynamic Form_________________ */
-	const [allForms, setAllForms] = useState([{description: '', price: '', quantity: ''}]);
-	console.log('!!', allForms);
+	const [allForms, setAllForms] = useState([{description: '', price: 0, quantity: 1}]);
+
 	const handleAddForms = () => {
-		event.preventDefault();
 		const values = [...allForms];
 		values.push({
 			description: '',
@@ -57,7 +56,6 @@ export default function CreateInvoice() {
 		}
 
 		setAllForms(values);
-		console.log(values);
 	};
 
 	const handleRemoveCard = index => {
@@ -271,6 +269,7 @@ item or service:__________________________________________ */}
 								<ServiceForm
 									key={index}
 									form={form}
+									serviceNumber={index + 1}
 									onCancel={() => handleRemoveCard(index)}
 									onChange={(event, type) =>
 										handleInputChange(index, event, type)
@@ -299,7 +298,7 @@ item or service:__________________________________________ */}
 		</div>
 	);
 }
-function ServiceForm({form, onCancel, onChange}) {
+function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 	const [description, setDescription] = useState(form.description);
 	const [price, setPrice] = useState(form.price);
 	const [quantity, setQuantity] = useState(form.quantity);
@@ -307,6 +306,7 @@ function ServiceForm({form, onCancel, onChange}) {
 		<InputCard>
 			<Service>
 				<h4>Your service</h4>
+				<h4>{serviceNumber}</h4>
 			</Service>
 			<div>
 				<label htmlFor="description">Description of your service/Item</label>
