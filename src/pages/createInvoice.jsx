@@ -268,58 +268,14 @@ item or service:__________________________________________ */}
 					<article>
 						<div>
 							{allForms.map((form, index) => (
-								<InputCard key={index}>
-									<Service>
-										<h4>Your service</h4>
-										<h4>{index + 1}</h4>
-									</Service>
-									<div>
-										<label htmlFor="description">
-											Description of your service/Item
-										</label>
-
-										<div key={index}>
-											<InputField
-												type="text"
-												name="description"
-												placeholder="Enter description"
-												value={form.description}
-												onChange={event => handleInputChange(index, event)}
-											/>
-										</div>
-
-										<div>
-											<li key={index}>
-												<label htmlFor="description">Price</label>
-												<InputField
-													type="text"
-													name="price"
-													placeholder="Enter price"
-													value={form.price}
-													onChange={event =>
-														handleInputChange(index, event, 'number')
-													}
-												/>
-											</li>
-										</div>
-										<div>
-											<li key={index}>
-												<label htmlFor="description">Quantity</label>
-												<InputField
-													type="text"
-													name="quantity"
-													placeholder="Enter quantity"
-													value={form.quantity}
-													onChange={event =>
-														handleInputChange(index, event, 'number')
-													}
-												/>
-											</li>
-										</div>
-									</div>
-
-									<button onClick={() => handleRemoveCard(index)}>Cancel</button>
-								</InputCard>
+								<ServiceForm
+									key={index}
+									form={form}
+									onCancel={() => handleRemoveCard(index)}
+									onChange={(event, type) =>
+										handleInputChange(index, event, type)
+									}
+								/>
 							))}
 						</div>
 					</article>
@@ -341,5 +297,66 @@ item or service:__________________________________________ */}
 				</form>
 			)}
 		</div>
+	);
+}
+function ServiceForm({form, onCancel, onChange}) {
+	const [description, setDescription] = useState(form.description);
+	const [price, setPrice] = useState(form.price);
+	const [quantity, setQuantity] = useState(form.quantity);
+	return (
+		<InputCard>
+			<Service>
+				<h4>Your service</h4>
+			</Service>
+			<div>
+				<label htmlFor="description">Description of your service/Item</label>
+
+				<div>
+					<InputField
+						type="text"
+						name="description"
+						placeholder="Enter description"
+						value={description}
+						onChange={event => {
+							setDescription(event.target.value);
+							onChange(event);
+						}}
+					/>
+				</div>
+
+				<div>
+					<li>
+						<label htmlFor="description">Price</label>
+						<InputField
+							type="text"
+							name="price"
+							placeholder="Enter price"
+							value={price}
+							onChange={event => {
+								setPrice(event.target.value);
+								onChange(event, 'number');
+							}}
+						/>
+					</li>
+				</div>
+				<div>
+					<li>
+						<label htmlFor="description">Quantity</label>
+						<InputField
+							type="text"
+							name="quantity"
+							placeholder="Enter quantity"
+							value={quantity}
+							onChange={event => {
+								setQuantity(event.target.value);
+								onChange(event, 'number');
+							}}
+						/>
+					</li>
+				</div>
+			</div>
+
+			<button onClick={onCancel}>Cancel</button>
+		</InputCard>
 	);
 }
