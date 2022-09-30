@@ -163,7 +163,7 @@ export default function CreateInvoice() {
 							name="name"
 							placeholder="e.g. Susan Baltimore"
 							value={name}
-							onChange={() => setName(event.target.value)}
+							onChange={event => setName(event.target.value)}
 						/>
 						<label htmlFor="street">Street</label>
 						<input
@@ -172,7 +172,7 @@ export default function CreateInvoice() {
 							name="street"
 							placeholder="e.g. Filimore Street"
 							value={street}
-							onChange={() => setStreet(event.target.value)}
+							onChange={event => setStreet(event.target.value)}
 						/>
 						<label htmlFor="name">City</label>
 						<input
@@ -181,7 +181,7 @@ export default function CreateInvoice() {
 							name="city"
 							placeholder="e.g. London"
 							value={city}
-							onChange={() => setCity(event.target.value)}
+							onChange={event => setCity(event.target.value)}
 						/>
 						<label htmlFor="name">Tax ID</label>
 						<input
@@ -190,7 +190,7 @@ export default function CreateInvoice() {
 							name="taxID"
 							placeholder="e.g. 34567890890"
 							value={taxID}
-							onChange={() => setTaxID(event.target.value)}
+							onChange={event => setTaxID(event.target.value)}
 						/>
 					</InputCard>
 					{/* _______________________Costumer Data_________________*/}
@@ -203,7 +203,7 @@ export default function CreateInvoice() {
 							name="recipientName"
 							placeholder="e.g. John Dylen"
 							value={recipientName}
-							onChange={() => setRecipientName(event.target.value)}
+							onChange={event => setRecipientName(event.target.value)}
 						/>
 						<label htmlFor="recipientStreet">Street</label>
 						<input
@@ -212,7 +212,7 @@ export default function CreateInvoice() {
 							name="recipientStreet"
 							placeholder="e.g. Som Street"
 							value={recipientStreet}
-							onChange={() => setRecipientStreet(event.target.value)}
+							onChange={event => setRecipientStreet(event.target.value)}
 						/>
 						<label htmlFor="recipientCity">City</label>
 						<input
@@ -221,7 +221,7 @@ export default function CreateInvoice() {
 							name="recipientCity"
 							placeholder="e.g. Hamburg"
 							value={recipientCity}
-							onChange={() => setRecipientCity(event.target.value)}
+							onChange={event => setRecipientCity(event.target.value)}
 						/>
 					</InputCard>
 					<InputCard>
@@ -234,7 +234,7 @@ export default function CreateInvoice() {
 							name="service"
 							placeholder="Ux design"
 							value={service}
-							onChange={() => setService(event.target.value)}
+							onChange={event => setService(event.target.value)}
 						/>
 						<label htmlFor="amount">price</label>
 						<input
@@ -243,7 +243,7 @@ export default function CreateInvoice() {
 							name="amount"
 							placeholder="amount in EUR"
 							value={amount}
-							onChange={() => setAmount(event.target.value)}
+							onChange={event => setAmount(event.target.value)}
 						/>
 						<label htmlFor="amount">quantity</label>
 						<input
@@ -252,7 +252,7 @@ export default function CreateInvoice() {
 							name="quantity"
 							placeholder="quantity in EUR"
 							value={quantity}
-							onChange={() => setQuantity(event.target.value)}
+							onChange={event => setQuantity(event.target.value)}
 						/>
 					</InputCard>
 					{/* ___________________________details about your 
