@@ -3,9 +3,13 @@ import {useState} from 'react';
 import StyledButton from '../components/Button/styled';
 import Header from '../components/Header';
 import InputCard from '../components/Positioning/InputCard';
+import InputField from '../components/Positioning/InputField';
+import InvoiceServiceList from '../components/Positioning/InvoiceServiceList';
+import Service from '../components/Positioning/Service';
 import Wrapper from '../components/Positioning/Wrapper';
 
 export default function CreateInvoice() {
+	//#region useStates
 	const [invoice, setInvoice] = useState(false);
 	/* -------------------USER DATA ---------------------*/
 	const [name, setName] = useState('');
@@ -17,17 +21,51 @@ export default function CreateInvoice() {
 	const [recipientStreet, setRecipientStreet] = useState('');
 	const [recipientCity, setRecipientCity] = useState('');
 	/* ______________________ITEM/SERVICE______________________ */
+
 	const [service, setService] = useState('');
 	const [amount, setAmount] = useState('');
 	const [quantity, setQuantity] = useState('');
+
 	/* ______________Calculating from quantity and price________ */
+
 	const subTotal = amount * quantity;
 	const VAT = subTotal * 0.19;
 	const grandTotal = subTotal + VAT;
+	//#endregion
 
-	/* const subtotal
-	const grandtotal
-	*/
+	/* ____________________________Dynamic Form_________________ */
+	/* ___________________________ Dynamic Form_________________ */
+	/* ____________________________Dynamic Form_________________ */
+	/* ____________________________Dynamic Form_________________ */
+	const [allForms, setAllForms] = useState([{description: '', price: '', quantity: ''}]);
+
+	const handleAddForms = () => {
+		event.preventDefault();
+		const values = [...allForms];
+		values.push({
+			description: '',
+			price: '',
+			quantity: '',
+		});
+		setAllForms(values);
+	};
+
+	const handleInputChange = (index, event) => {
+		const values = [...allForms];
+		const updatedValue = event.target.name;
+		values[index][updatedValue] = event.target.value;
+
+		setAllForms(values);
+		console.log(values);
+	};
+
+	const handleRemoveCard = index => {
+		const values = [...allForms];
+		values.splice(index, 1);
+		setAllForms(values);
+	};
+
+	/* __________________________End Dynamic Form________________________ */
 
 	return (
 		<div>
@@ -51,17 +89,45 @@ export default function CreateInvoice() {
 						</InputCard>
 					</Wrapper>
 					<Wrapper>
-						<div>Service:</div>
+						<li>Nr:</li>
+						<li>Service:</li>
 
-						<div>price (net):</div>
+						<li>price (net):</li>
 
-						<div>QTY:</div>
+						<li>QTY:</li>
 					</Wrapper>
+
+					{/* __________________________________________________________________________________ */}
+					{/* __________________________________________________________________________________ */}
+					{/* __________________________________________________________________________________ */}
+					{/* __________________________________________________________________________________ */}
+					{/* __________________________________________________________________________________ */}
+					{/* __________________________________________________________________________________ */}
+
+					{/* __________________________________________________________________________________ */}
+					{/* __________________________________________________________________________________ */}
+					{/* __________________________________________________________________________________ */}
+					{/* __________________________________________________________________________________ */}
+					{/* __________________________________________________________________________________ */}
+					<>
+						{allForms.map((allForm, index) => (
+							<>
+								<Wrapper key={index}>
+									<InvoiceServiceList>{index + 1}</InvoiceServiceList>
+									<InvoiceServiceList>{allForm.description}</InvoiceServiceList>
+									<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
+									<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
+								</Wrapper>
+							</>
+						))}
+					</>
+
 					<Wrapper>
-						<div>-{service}</div>
-						<div>{amount} EUR</div>
+						<div>{service}</div>
+						<div>{amount}</div>
 						<div>{quantity}</div>
 					</Wrapper>
+					<h2>Old Static Form Results</h2>
 					<h5>Total: {subTotal} EUR (net)</h5>
 					<h5>VAT: {VAT} EUR</h5>
 					<h5>Grand Total: {grandTotal} EUR</h5>
@@ -113,7 +179,7 @@ export default function CreateInvoice() {
 							onChange={() => setTaxID(event.target.value)}
 						/>
 					</InputCard>
-					{/* _______________________Recipient Data_________________*/}
+					{/* _______________________Costumer Data_________________*/}
 					<InputCard>
 						<h3>Customer Data</h3>
 						<label htmlFor="recipientName">Name</label>
@@ -131,7 +197,7 @@ export default function CreateInvoice() {
 							id="recipientStreet"
 							name="recipientStreet"
 							placeholder="e.g. Som Street"
-							value={street}
+							value={recipientStreet}
 							onChange={() => setRecipientStreet(event.target.value)}
 						/>
 						<label htmlFor="recipientCity">City</label>
@@ -140,17 +206,16 @@ export default function CreateInvoice() {
 							id="recipientCity"
 							name="recipientCity"
 							placeholder="e.g. Hamburg"
-							value={city}
+							value={recipientCity}
 							onChange={() => setRecipientCity(event.target.value)}
 						/>
 					</InputCard>
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
 					<InputCard>
 						{' '}
+						<h3>Old Static Form / Your service </h3>
 						<label htmlFor="service">Description of your service/Item</label>
 						<input
-							type="message"
+							type="text"
 							id="service"
 							name="service"
 							placeholder="Ux design"
@@ -159,7 +224,7 @@ item or service:__________________________________________ */}
 						/>
 						<label htmlFor="amount">price</label>
 						<input
-							type="text"
+							type="number"
 							id="amount"
 							name="amount"
 							placeholder="amount in EUR"
@@ -168,7 +233,7 @@ item or service:__________________________________________ */}
 						/>
 						<label htmlFor="amount">quantity</label>
 						<input
-							type="text"
+							type="number"
 							id="quantity"
 							name="quantity"
 							placeholder="quantity in EUR"
@@ -176,7 +241,102 @@ item or service:__________________________________________ */}
 							onChange={() => setQuantity(event.target.value)}
 						/>
 					</InputCard>
+					{/* ___________________________details about your 
+item or service:__________________________________________ */}
+					{/* ___________________________details about your 
+item or service:__________________________________________ */}
+					{/* ___________________________details about your 
+item or service:__________________________________________ */}
+					{/* ___________________________details about your 
+item or service:__________________________________________ */}
+					{/* ___________________________details about your 
+item or service:__________________________________________ */}
+					<article>
+						<div>
+							{allForms.length > 0 && (
+								<>
+									{allForms.map((form, index) => (
+										<>
+											<InputCard>
+												<Service>
+													<h4>Your service</h4>
+													<h4>{index + 1}</h4>
+												</Service>
+												<div>
+													<label htmlFor="description">
+														Description of your service/Item
+													</label>
 
+													<div key={index}>
+														<InputField
+															type="text"
+															name="description"
+															placeholder="Enter description"
+															value={form.description}
+															onChange={event =>
+																handleInputChange(index, event)
+															}
+														/>
+													</div>
+
+													<div>
+														<li key={index}>
+															<label htmlFor="description">
+																Price
+															</label>
+															<InputField
+																type="text"
+																name="price"
+																placeholder="Enter price"
+																value={form.price}
+																onChange={event =>
+																	handleInputChange(index, event)
+																}
+															/>
+														</li>
+													</div>
+													<div>
+														<li key={index}>
+															<label htmlFor="description">
+																Quantity
+															</label>
+															<InputField
+																type="text"
+																name="quantity"
+																placeholder="Enter quantity"
+																value={form.quantity}
+																onChange={event =>
+																	handleInputChange(index, event)
+																}
+															/>
+														</li>
+													</div>
+												</div>
+
+												<button onClick={() => handleRemoveCard(index)}>
+													Cancel
+												</button>
+											</InputCard>
+										</>
+									))}
+								</>
+							)}
+						</div>{' '}
+					</article>
+					{/* ___________________________details about your 
+item or service:__________________________________________ */}
+					{/* ___________________________details about your 
+item or service:__________________________________________ */}
+					{/* ___________________________details about your 
+item or service:__________________________________________ */}
+					{/* ___________________________details about your 
+item or service:__________________________________________ */}
+					{/* ___________________________details about your 
+item or service:__________________________________________ */}
+
+					<h1>
+						<button onClick={() => handleAddForms()}>Add more Service/Item</button>
+					</h1>
 					<StyledButton onClick={() => setInvoice(true)} type="submit">
 						Submit
 					</StyledButton>

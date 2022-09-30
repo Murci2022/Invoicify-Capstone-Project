@@ -1,0 +1,9 @@
+import styled from 'styled-components';
+
+const InvoiceServiceList = styled.li`
+	display: flex;
+	padding: 1px 5px;
+	border: 1px solid black;
+`;
+
+export default InvoiceServiceList;
