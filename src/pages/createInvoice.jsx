@@ -65,7 +65,8 @@ export default function CreateInvoice() {
 	};
 
 	const totalPrice = allForms.reduce((total, all) => {
-		return total + all.price;
+		console.log({total, all});
+		return total + all.quantity * all.price;
 	}, 0);
 	console.log(totalPrice);
 
