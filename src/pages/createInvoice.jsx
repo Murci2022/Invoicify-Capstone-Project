@@ -28,9 +28,6 @@ export default function CreateInvoice() {
 
 	/* ______________Calculating from quantity and price________ */
 
-	const subTotal = amount * quantity;
-	const VAT = subTotal * 0.19;
-	const grandTotal = subTotal + VAT;
 	//#endregion
 
 	/* ____________________________Dynamic Form_________________ */
@@ -70,7 +67,7 @@ export default function CreateInvoice() {
 
 	/* VAT Service/Item */
 
-	const ServiceVAT = 0.19;
+	const serviceVAT = 0.19;
 
 	/* totalPrice (net) */
 
@@ -80,7 +77,8 @@ export default function CreateInvoice() {
 	}, 0);
 	console.log(totalPrice);
 
-	const totalVAT = totalPrice * ServiceVAT;
+	const totalVAT = totalPrice * serviceVAT;
+	const grandTotal = totalPrice + totalVAT;
 
 	console.log(totalPrice);
 
@@ -160,10 +158,6 @@ export default function CreateInvoice() {
 					<h5>Total: {totalVAT} EUR </h5>
 					<h5>Grand Total: {grandTotal} EUR</h5>
 					{/*__________________________old calc___________________ */}
-
-					<h5>Total: OLD {subTotal} EUR (net)</h5>
-					<h5>VAT: OLD{VAT} EUR</h5>
-					<h5>Grand Total: {grandTotal} EUR</h5>
 
 					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 				</div>
