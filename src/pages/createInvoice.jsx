@@ -64,13 +64,33 @@ export default function CreateInvoice() {
 		setAllForms(values);
 	};
 
+	/* ______________________CalculationS_____________________________ */
+	/* ______________________CalculationS_____________________________ */
+	/* ______________________CalculationS_____________________________ */
+
+	/* VAT Service/Item */
+
+	const ServiceVAT = 0.19;
+
+	/* totalPrice (net) */
+
 	const totalPrice = allForms.reduce((total, all) => {
 		console.log({total, all});
 		return total + all.quantity * all.price;
 	}, 0);
 	console.log(totalPrice);
 
-	/* __________________________End Dynamic Form________________________ */
+	const totalVAT = totalPrice * ServiceVAT;
+
+	console.log(totalPrice);
+
+	/* ---------------------TO DO LIST------------------ 
+	------nur bis 2 tizedesig---------------
+	------ausfüllen----------
+	-----const grandTotal = totalPrice + totalVAT;
+	-------szöveg text limit*/
+
+	/* __________________________INVOICE________________________ */
 
 	return (
 		<div>
@@ -136,8 +156,13 @@ export default function CreateInvoice() {
 					</Wrapper>
 
 					<h2>Old Static Form Results</h2>
-					<h5>Total: {subTotal} EUR (net)</h5>
-					<h5>VAT: {VAT} EUR</h5>
+					<h5>Total: {totalPrice} EUR (net)</h5>
+					<h5>Total: {totalVAT} EUR </h5>
+					<h5>Grand Total: {grandTotal} EUR</h5>
+					{/*__________________________old calc___________________ */}
+
+					<h5>Total: OLD {subTotal} EUR (net)</h5>
+					<h5>VAT: OLD{VAT} EUR</h5>
 					<h5>Grand Total: {grandTotal} EUR</h5>
 
 					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
