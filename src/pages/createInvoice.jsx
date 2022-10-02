@@ -184,7 +184,7 @@ export default function CreateInvoice() {
 
 					<InputCard>
 						<h3>Your Data</h3>
-						<label htmlFor="name">Name</label>
+						<label htmlFor="name">Name*</label>
 						<input
 							type="text"
 							id="name"
@@ -193,7 +193,7 @@ export default function CreateInvoice() {
 							value={name}
 							onChange={event => setName(event.target.value)}
 						/>
-						<label htmlFor="street">Street</label>
+						<label htmlFor="street">Street*</label>
 						<input
 							type="text"
 							id="street"
@@ -202,7 +202,7 @@ export default function CreateInvoice() {
 							value={street}
 							onChange={event => setStreet(event.target.value)}
 						/>
-						<label htmlFor="name">City</label>
+						<label htmlFor="name">City*</label>
 						<input
 							type="text"
 							id="city"
@@ -211,9 +211,9 @@ export default function CreateInvoice() {
 							value={city}
 							onChange={event => setCity(event.target.value)}
 						/>
-						<label htmlFor="name">Tax ID</label>
+						<label htmlFor="name">Tax ID*</label>
 						<input
-							type="text"
+							type="number"
 							id="taxID"
 							name="taxID"
 							placeholder="e.g. 34567890890"
@@ -224,7 +224,7 @@ export default function CreateInvoice() {
 					{/* _______________________Costumer Data_________________*/}
 					<InputCard>
 						<h3>Customer Data</h3>
-						<label htmlFor="recipientName">Name</label>
+						<label htmlFor="recipientName">Name*</label>
 						<input
 							type="text"
 							id="recipientName"
@@ -233,7 +233,7 @@ export default function CreateInvoice() {
 							value={recipientName}
 							onChange={event => setRecipientName(event.target.value)}
 						/>
-						<label htmlFor="recipientStreet">Street</label>
+						<label htmlFor="recipientStreet">Street*</label>
 						<input
 							type="text"
 							id="recipientStreet"
@@ -242,7 +242,7 @@ export default function CreateInvoice() {
 							value={recipientStreet}
 							onChange={event => setRecipientStreet(event.target.value)}
 						/>
-						<label htmlFor="recipientCity">City</label>
+						<label htmlFor="recipientCity">City*</label>
 						<input
 							type="text"
 							id="recipientCity"
