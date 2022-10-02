@@ -17,6 +17,8 @@ export default function CreateInvoice() {
 	const [street, setStreet] = useState('');
 	const [city, setCity] = useState('');
 	const [taxID, setTaxID] = useState('');
+	const [paymentMethod, setPaymentMethod] = useState('');
+
 	/* ________________USER NAME_________________________ */
 	const [recipientName, setRecipientName] = useState('');
 	const [recipientStreet, setRecipientStreet] = useState('');
@@ -109,6 +111,7 @@ export default function CreateInvoice() {
 							<li>Adress: {street}</li>
 							<li>City: {city}</li>
 							<li>TAX ID: {taxID}</li>
+							<li>Paymentmethod: {paymentMethod}</li>
 						</InputCard>
 						<InputCard>
 							<li>Name:{recipientName}</li>
@@ -211,6 +214,7 @@ export default function CreateInvoice() {
 							value={city}
 							onChange={event => setCity(event.target.value)}
 						/>
+
 						<label htmlFor="name">Tax ID*</label>
 						<input
 							type="number"
@@ -220,6 +224,17 @@ export default function CreateInvoice() {
 							value={taxID}
 							onChange={event => setTaxID(event.target.value)}
 						/>
+						{/* <label htmlFor="paymentmethod">Payment method*</label> */}
+						<select
+							onChange={event => {
+								const selectedPaymentMethod = event.target.value;
+								setPaymentMethod(selectedPaymentMethod);
+							}}
+						>
+							<option value="select">--select--</option>
+							<option value="bank">bank transfer</option>
+							<option value="cash">cash</option>
+						</select>
 					</InputCard>
 					{/* _______________________Costumer Data_________________*/}
 					<InputCard>
@@ -252,6 +267,7 @@ export default function CreateInvoice() {
 							onChange={event => setRecipientCity(event.target.value)}
 						/>
 					</InputCard>
+
 					<InputCard>
 						{' '}
 						<h3>Old Static Form / Your service </h3>
