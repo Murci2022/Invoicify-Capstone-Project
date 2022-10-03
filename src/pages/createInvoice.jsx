@@ -1,6 +1,8 @@
 import {useState} from 'react';
 
 import StyledButton from '../components/Button/styled';
+import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
+import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
 import Header from '../components/Header';
 import InputCard from '../components/Positioning/InputCard';
 import InputField from '../components/Positioning/InputField';
@@ -17,7 +19,9 @@ export default function CreateInvoice() {
 	const [street, setStreet] = useState('');
 	const [city, setCity] = useState('');
 	const [taxID, setTaxID] = useState('');
-	const [paymentMethod, setPaymentMethod] = useState('');
+	const [paymentMethod, setPaymentMethod] = useState('cash');
+	const [ibanNr, setIbanNr] = useState('');
+	const [bankName, setBankName] = useState('');
 
 	/* ________________USER NAME_________________________ */
 	const [recipientName, setRecipientName] = useState('');
@@ -29,7 +33,7 @@ export default function CreateInvoice() {
 	const [amount, setAmount] = useState('');
 	const [quantity, setQuantity] = useState('');
 
-	/* ______________Calculating from quantity and price________ */
+	/* ______________Value________ */
 
 	//#endregion
 
@@ -82,13 +86,15 @@ export default function CreateInvoice() {
 		console.log({total, all});
 		return total + all.quantity * all.price;
 	}, 0);
-	console.log(totalPrice);
+	/* console.log(totalPrice); */
 
 	const totalVAT = totalPrice * serviceVAT;
 	const grandTotal = totalPrice + totalVAT;
 
-	console.log(totalPrice);
-
+	/* console.log(totalPrice);
+	
+	console.log(typeof paymentMethod); */
+	console.log(paymentMethod);
 	/* ---------------------TO DO LIST------------------ 
 	------nur bis 2 tizedesig---------------
 	------ausfüllen----------
@@ -113,6 +119,7 @@ export default function CreateInvoice() {
 							<li>TAX ID: {taxID}</li>
 							<li>Paymentmethod: {paymentMethod}</li>
 						</InputCard>
+
 						<InputCard>
 							<li>Name:{recipientName}</li>
 							<li>Adress:{recipientStreet}</li>
@@ -166,13 +173,16 @@ export default function CreateInvoice() {
 						<div>{quantity}</div>
 					</Wrapper>
 
-					<h2>Old Static Form Results</h2>
 					<h5>Total: {totalPrice} EUR (net)</h5>
 					<h5>Total VAT: {totalVAT} EUR </h5>
 					<h5>Grand Total: {grandTotal} EUR</h5>
-					{/*__________________________old calc___________________ */}
 
 					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
+					<DisplayPaymentInfo
+						bankName={bankName}
+						ibanNr={ibanNr}
+						paymentMethod={paymentMethod}
+					/>
 				</div>
 			) : (
 				<form
@@ -227,14 +237,23 @@ export default function CreateInvoice() {
 						{/* <label htmlFor="paymentmethod">Payment method*</label> */}
 						<select
 							onChange={event => {
-								const selectedPaymentMethod = event.target.value;
-								setPaymentMethod(selectedPaymentMethod);
+								const {value} = event.target;
+								console.log(value);
+								setPaymentMethod(value);
 							}}
 						>
 							<option value="select">--select--</option>
 							<option value="bank">bank transfer</option>
 							<option value="cash">cash</option>
 						</select>
+
+						<CheckPaymentInfo
+							bankName={bankName}
+							ibanNr={ibanNr}
+							paymentMethod={paymentMethod}
+							handleBankNameChange={e => setBankName(e.target.value)}
+							handleIbanChange={e => setIbanNr(e.target.value)}
+						/>
 					</InputCard>
 					{/* _______________________Costumer Data_________________*/}
 					<InputCard>
@@ -346,6 +365,7 @@ item or service:__________________________________________ */}
 		</div>
 	);
 }
+
 function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 	const [description, setDescription] = useState(form.description);
 	const [price, setPrice] = useState(form.price);

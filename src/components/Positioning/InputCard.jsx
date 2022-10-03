@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const InputCard = styled.fieldset`
+const InputCard = styled.form`
 	display: flex;
 	flex-direction: column;
 	margin: 20px;
