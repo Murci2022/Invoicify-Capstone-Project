@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
-const InputCard = styled.ul`
+const InputField = styled.input`
 	display: flex;
 	flex-direction: column;
-	margin: 20px;
+	align-items: center;
 	padding: 5px;
 	border: 1px solid black;
-	list-style: none;
 `;
 
-export default InputCard;
+export default InputField;
