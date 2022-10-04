@@ -1,6 +1,8 @@
 import {useState} from 'react';
 
 import StyledButton from '../components/Button/styled';
+import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
+import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
 import Header from '../components/Header';
 import InputCard from '../components/Positioning/InputCard';
 import InputField from '../components/Positioning/InputField';
@@ -18,6 +20,10 @@ export default function CreateInvoice() {
 	const [street, setStreet] = useState('');
 	const [city, setCity] = useState('');
 	const [taxID, setTaxID] = useState('');
+	const [paymentMethod, setPaymentMethod] = useState('cash');
+	const [ibanNr, setIbanNr] = useState('');
+	const [bankName, setBankName] = useState('');
+
 	/* ________________USER NAME_________________________ */
 	const [recipientName, setRecipientName] = useState('');
 	const [recipientStreet, setRecipientStreet] = useState('');
@@ -27,8 +33,6 @@ export default function CreateInvoice() {
 	const [service, setService] = useState('');
 	const [amount, setAmount] = useState('');
 	const [quantity, setQuantity] = useState('');
-
-	/* ______________Calculating from quantity and price________ */
 
 	//#endregion
 
@@ -81,12 +85,11 @@ export default function CreateInvoice() {
 		console.log({total, all});
 		return total + all.quantity * all.price;
 	}, 0);
-	console.log(totalPrice);
+
 
 	const totalVAT = totalPrice * serviceVAT;
 	const grandTotal = totalPrice + totalVAT;
 
-	console.log(totalPrice);
 
 	/* ---------------------TO DO LIST------------------ 
 	------nur bis 2 tizedesig---------------
@@ -96,11 +99,6 @@ export default function CreateInvoice() {
 
 	/* __________________________INVOICE________________________ */
 
-	//#endregion
-
-	/* ____________________________Dynamic Form_________________ */
-
-	/* __________________________End Dynamic Form________________________ */
 
 	return (
 		<div>
@@ -116,7 +114,9 @@ export default function CreateInvoice() {
 							<li>Adress: {street}</li>
 							<li>City: {city}</li>
 							<li>TAX ID: {taxID}</li>
+							<li>Paymentmethod: {paymentMethod}</li>
 						</InputCard>
+
 						<InputCard>
 							<li>Name:{recipientName}</li>
 							<li>Adress:{recipientStreet}</li>
@@ -127,7 +127,9 @@ export default function CreateInvoice() {
 						<li>Nr:</li>
 						<li>Service:</li>
 
+
 						<li>price (net):</li>
+
 
 						<li>VAT: {VAT}%</li>
 
@@ -172,7 +174,6 @@ export default function CreateInvoice() {
 						<div>{quantity}</div>
 					</Wrapper>
 
-					<h2>Old Static Form Results</h2>
 
 					<h5>Total: {totalPrice} EUR (net)</h5>
 					<h5>Total VAT: {totalVAT} EUR </h5>
@@ -181,6 +182,11 @@ export default function CreateInvoice() {
 					{/*__________________________old calc___________________ */}
 
 					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
+					<DisplayPaymentInfo
+						bankName={bankName}
+						ibanNr={ibanNr}
+						paymentMethod={paymentMethod}
+					/>
 				</div>
 			) : (
 				<form
@@ -222,6 +228,7 @@ export default function CreateInvoice() {
 							value={city}
 							onChange={event => setCity(event.target.value)}
 						/>
+
 						<label htmlFor="name">Tax ID*</label>
 						<input
 							type="number"
@@ -230,6 +237,28 @@ export default function CreateInvoice() {
 							placeholder="e.g. 34567890890"
 							value={taxID}
 							onChange={event => setTaxID(event.target.value)}
+
+						/>
+						{/* <label htmlFor="paymentmethod">Payment method*</label> */}
+						<select
+							onChange={event => {
+								const {value} = event.target;
+								console.log(value);
+								setPaymentMethod(value);
+							}}
+						>
+							<option value="select">--select--</option>
+							<option value="bank">bank transfer</option>
+							<option value="cash">cash</option>
+						</select>
+
+						<CheckPaymentInfo
+							bankName={bankName}
+							ibanNr={ibanNr}
+							paymentMethod={paymentMethod}
+							handleBankNameChange={e => setBankName(e.target.value)}
+							handleIbanChange={e => setIbanNr(e.target.value)}
+
 						/>
 					</InputCard>
 					{/* _______________________Costumer Data_________________*/}
@@ -263,6 +292,7 @@ export default function CreateInvoice() {
 							onChange={event => setRecipientCity(event.target.value)}
 						/>
 					</InputCard>
+
 					<InputCard>
 						{' '}
 						<h3>Old Static Form / Your service </h3>
@@ -341,6 +371,7 @@ item or service:__________________________________________ */}
 		</div>
 	);
 }
+
 function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 	const [description, setDescription] = useState(form.description);
 	const [price, setPrice] = useState(form.price);
