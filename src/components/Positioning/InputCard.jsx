@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
+
 const InputCard = styled.fieldset`
+
 	display: flex;
 	flex-direction: column;
 	margin: 20px;

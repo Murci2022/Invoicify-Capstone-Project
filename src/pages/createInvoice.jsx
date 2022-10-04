@@ -9,7 +9,9 @@ import Service from '../components/Positioning/Service';
 import Wrapper from '../components/Positioning/Wrapper';
 
 export default function CreateInvoice() {
+
 	const VAT = 19;
+
 	//#region useStates
 	const [invoice, setInvoice] = useState(false);
 	/* -------------------USER DATA ---------------------*/
@@ -28,6 +30,7 @@ export default function CreateInvoice() {
 	const [quantity, setQuantity] = useState('');
 
 	/* ______________Calculating from quantity and price________ */
+
 
 	//#endregion
 
@@ -95,6 +98,49 @@ export default function CreateInvoice() {
 
 	/* __________________________INVOICE________________________ */
 
+	const subTotal = amount * quantity;
+	const VAT = subTotal * 0.19;
+	const grandTotal = subTotal + VAT;
+	//#endregion
+
+	/* ____________________________Dynamic Form_________________ */
+	const [allForms, setAllForms] = useState([{description: '', price: 0, quantity: 1}]);
+
+	const handleAddForms = () => {
+		const values = [...allForms];
+		values.push({
+			description: '',
+			price: 0,
+			quantity: 1,
+		});
+		setAllForms(values);
+	};
+
+	const handleInputChange = (index, event, type = 'string') => {
+		const values = [...allForms];
+		const updatedValue = event.target.name;
+		if (type === 'number') {
+			values[index][updatedValue] = Number.parseFloat(event.target.value);
+		} else {
+			values[index][updatedValue] = event.target.value;
+		}
+
+		setAllForms(values);
+	};
+
+	const handleRemoveCard = index => {
+		const values = [...allForms];
+		values.splice(index, 1);
+		setAllForms(values);
+	};
+
+	const totalPrice = allForms.reduce((total, all) => {
+		return total + all.price;
+	}, 0);
+	console.log(totalPrice);
+
+	/* __________________________End Dynamic Form________________________ */
+
 	return (
 		<div>
 			{invoice ? (
@@ -121,7 +167,9 @@ export default function CreateInvoice() {
 						<li>Service:</li>
 
 						<li>price (net):</li>
+
 						<li>VAT: {VAT}%</li>
+
 
 						<li>QTY:</li>
 						<div>Subtotal</div>
@@ -145,10 +193,12 @@ export default function CreateInvoice() {
 								<InvoiceServiceList>{index + 1}</InvoiceServiceList>
 								<InvoiceServiceList>{allForm.description}</InvoiceServiceList>
 								<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
+
 								<InvoiceServiceList>
 									{(allForm.VAT / 100) * allForm.price}EUR
 								</InvoiceServiceList>
 								<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
+
 
 								<InvoiceServiceList>
 									{allForm.price * allForm.quantity}EUR
@@ -164,8 +214,10 @@ export default function CreateInvoice() {
 					</Wrapper>
 
 					<h2>Old Static Form Results</h2>
+
 					<h5>Total: {totalPrice} EUR (net)</h5>
 					<h5>Total VAT: {totalVAT} EUR </h5>
+
 					<h5>Grand Total: {grandTotal} EUR</h5>
 					{/*__________________________old calc___________________ */}
 
