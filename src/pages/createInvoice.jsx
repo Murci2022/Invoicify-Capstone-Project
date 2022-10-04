@@ -12,6 +12,7 @@ import Wrapper from '../components/Positioning/Wrapper';
 
 export default function CreateInvoice() {
 	const VAT = 19;
+
 	//#region useStates
 	const [invoice, setInvoice] = useState(false);
 	/* -------------------USER DATA ---------------------*/
@@ -32,8 +33,6 @@ export default function CreateInvoice() {
 	const [service, setService] = useState('');
 	const [amount, setAmount] = useState('');
 	const [quantity, setQuantity] = useState('');
-
-	/* ______________Value________ */
 
 	//#endregion
 
@@ -86,15 +85,12 @@ export default function CreateInvoice() {
 		console.log({total, all});
 		return total + all.quantity * all.price;
 	}, 0);
-	/* console.log(totalPrice); */
+
 
 	const totalVAT = totalPrice * serviceVAT;
 	const grandTotal = totalPrice + totalVAT;
 
-	/* console.log(totalPrice);
-	
-	console.log(typeof paymentMethod); */
-	console.log(paymentMethod);
+
 	/* ---------------------TO DO LIST------------------ 
 	------nur bis 2 tizedesig---------------
 	------ausfüllen----------
@@ -102,6 +98,7 @@ export default function CreateInvoice() {
 	-------szöveg text limit*/
 
 	/* __________________________INVOICE________________________ */
+
 
 	return (
 		<div>
@@ -130,7 +127,10 @@ export default function CreateInvoice() {
 						<li>Nr:</li>
 						<li>Service:</li>
 
+
 						<li>price (net):</li>
+
+
 						<li>VAT: {VAT}%</li>
 
 						<li>QTY:</li>
@@ -155,6 +155,7 @@ export default function CreateInvoice() {
 								<InvoiceServiceList>{index + 1}</InvoiceServiceList>
 								<InvoiceServiceList>{allForm.description}</InvoiceServiceList>
 								<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
+
 								<InvoiceServiceList>
 									{(allForm.VAT / 100) * allForm.price}EUR
 								</InvoiceServiceList>
@@ -173,9 +174,12 @@ export default function CreateInvoice() {
 						<div>{quantity}</div>
 					</Wrapper>
 
+
 					<h5>Total: {totalPrice} EUR (net)</h5>
 					<h5>Total VAT: {totalVAT} EUR </h5>
+
 					<h5>Grand Total: {grandTotal} EUR</h5>
+					{/*__________________________old calc___________________ */}
 
 					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 					<DisplayPaymentInfo
@@ -233,6 +237,7 @@ export default function CreateInvoice() {
 							placeholder="e.g. 34567890890"
 							value={taxID}
 							onChange={event => setTaxID(event.target.value)}
+
 						/>
 						{/* <label htmlFor="paymentmethod">Payment method*</label> */}
 						<select
@@ -253,6 +258,7 @@ export default function CreateInvoice() {
 							paymentMethod={paymentMethod}
 							handleBankNameChange={e => setBankName(e.target.value)}
 							handleIbanChange={e => setIbanNr(e.target.value)}
+
 						/>
 					</InputCard>
 					{/* _______________________Costumer Data_________________*/}
