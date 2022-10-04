@@ -9,6 +9,9 @@ import Service from '../components/Positioning/Service';
 import Wrapper from '../components/Positioning/Wrapper';
 
 export default function CreateInvoice() {
+
+	const VAT = 19;
+
 	//#region useStates
 	const [invoice, setInvoice] = useState(false);
 	/* -------------------USER DATA ---------------------*/
@@ -27,6 +30,73 @@ export default function CreateInvoice() {
 	const [quantity, setQuantity] = useState('');
 
 	/* ______________Calculating from quantity and price________ */
+
+
+	//#endregion
+
+	/* ____________________________Dynamic Form_________________ */
+
+	/* VAT Service/Item */
+
+	const [allForms, setAllForms] = useState([{description: '', price: 0, quantity: 1, VAT: VAT}]);
+
+	const handleAddForms = () => {
+		const values = [...allForms];
+		values.push({
+			description: '',
+			price: 0,
+			quantity: 1,
+			VAT: VAT,
+		});
+		setAllForms(values);
+	};
+
+	const handleInputChange = (index, event, type = 'string') => {
+		const values = [...allForms];
+		const updatedValue = event.target.name;
+		if (type === 'number') {
+			values[index][updatedValue] = Number.parseFloat(event.target.value);
+		} else {
+			values[index][updatedValue] = event.target.value;
+		}
+
+		setAllForms(values);
+	};
+
+	const handleRemoveCard = index => {
+		const values = [...allForms];
+		values.splice(index, 1);
+		setAllForms(values);
+	};
+
+	/* ______________________CalculationS_____________________________ */
+	/* ______________________CalculationS_____________________________ */
+	/* ______________________CalculationS_____________________________ */
+
+	/* VAT Service/Item */
+
+	const serviceVAT = 0.19;
+
+	/* totalPrice (net) */
+
+	const totalPrice = allForms.reduce((total, all) => {
+		console.log({total, all});
+		return total + all.quantity * all.price;
+	}, 0);
+	console.log(totalPrice);
+
+	const totalVAT = totalPrice * serviceVAT;
+	const grandTotal = totalPrice + totalVAT;
+
+	console.log(totalPrice);
+
+	/* ---------------------TO DO LIST------------------ 
+	------nur bis 2 tizedesig---------------
+	------ausfüllen----------
+	-----const grandTotal = totalPrice + totalVAT;
+	-------szöveg text limit*/
+
+	/* __________________________INVOICE________________________ */
 
 	const subTotal = amount * quantity;
 	const VAT = subTotal * 0.19;
@@ -98,6 +168,9 @@ export default function CreateInvoice() {
 
 						<li>price (net):</li>
 
+						<li>VAT: {VAT}%</li>
+
+
 						<li>QTY:</li>
 						<div>Subtotal</div>
 					</Wrapper>
@@ -120,7 +193,13 @@ export default function CreateInvoice() {
 								<InvoiceServiceList>{index + 1}</InvoiceServiceList>
 								<InvoiceServiceList>{allForm.description}</InvoiceServiceList>
 								<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
+
+								<InvoiceServiceList>
+									{(allForm.VAT / 100) * allForm.price}EUR
+								</InvoiceServiceList>
 								<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
+
+
 								<InvoiceServiceList>
 									{allForm.price * allForm.quantity}EUR
 								</InvoiceServiceList>
@@ -135,9 +214,12 @@ export default function CreateInvoice() {
 					</Wrapper>
 
 					<h2>Old Static Form Results</h2>
-					<h5>Total: {subTotal} EUR (net)</h5>
-					<h5>VAT: {VAT} EUR</h5>
+
+					<h5>Total: {totalPrice} EUR (net)</h5>
+					<h5>Total VAT: {totalVAT} EUR </h5>
+
 					<h5>Grand Total: {grandTotal} EUR</h5>
+					{/*__________________________old calc___________________ */}
 
 					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 				</div>
@@ -154,7 +236,7 @@ export default function CreateInvoice() {
 
 					<InputCard>
 						<h3>Your Data</h3>
-						<label htmlFor="name">Name</label>
+						<label htmlFor="name">Name*</label>
 						<input
 							type="text"
 							id="name"
@@ -163,7 +245,7 @@ export default function CreateInvoice() {
 							value={name}
 							onChange={event => setName(event.target.value)}
 						/>
-						<label htmlFor="street">Street</label>
+						<label htmlFor="street">Street*</label>
 						<input
 							type="text"
 							id="street"
@@ -172,7 +254,7 @@ export default function CreateInvoice() {
 							value={street}
 							onChange={event => setStreet(event.target.value)}
 						/>
-						<label htmlFor="name">City</label>
+						<label htmlFor="name">City*</label>
 						<input
 							type="text"
 							id="city"
@@ -181,9 +263,9 @@ export default function CreateInvoice() {
 							value={city}
 							onChange={event => setCity(event.target.value)}
 						/>
-						<label htmlFor="name">Tax ID</label>
+						<label htmlFor="name">Tax ID*</label>
 						<input
-							type="text"
+							type="number"
 							id="taxID"
 							name="taxID"
 							placeholder="e.g. 34567890890"
@@ -194,7 +276,7 @@ export default function CreateInvoice() {
 					{/* _______________________Costumer Data_________________*/}
 					<InputCard>
 						<h3>Customer Data</h3>
-						<label htmlFor="recipientName">Name</label>
+						<label htmlFor="recipientName">Name*</label>
 						<input
 							type="text"
 							id="recipientName"
@@ -203,7 +285,7 @@ export default function CreateInvoice() {
 							value={recipientName}
 							onChange={event => setRecipientName(event.target.value)}
 						/>
-						<label htmlFor="recipientStreet">Street</label>
+						<label htmlFor="recipientStreet">Street*</label>
 						<input
 							type="text"
 							id="recipientStreet"
@@ -212,7 +294,7 @@ export default function CreateInvoice() {
 							value={recipientStreet}
 							onChange={event => setRecipientStreet(event.target.value)}
 						/>
-						<label htmlFor="recipientCity">City</label>
+						<label htmlFor="recipientCity">City*</label>
 						<input
 							type="text"
 							id="recipientCity"
