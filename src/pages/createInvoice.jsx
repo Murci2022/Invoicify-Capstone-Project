@@ -15,7 +15,7 @@ export default function CreateInvoice() {
 
 	//#region useStates
 	const [invoice, setInvoice] = useState(false);
-	/* -------------------USER DATA ---------------------*/
+
 	const [name, setName] = useState('');
 	const [street, setStreet] = useState('');
 	const [city, setCity] = useState('');
@@ -24,21 +24,15 @@ export default function CreateInvoice() {
 	const [ibanNr, setIbanNr] = useState('');
 	const [bankName, setBankName] = useState('');
 
-	/* ________________USER NAME_________________________ */
 	const [recipientName, setRecipientName] = useState('');
 	const [recipientStreet, setRecipientStreet] = useState('');
 	const [recipientCity, setRecipientCity] = useState('');
-	/* ______________________ITEM/SERVICE______________________ */
 
 	const [service, setService] = useState('');
 	const [amount, setAmount] = useState('');
 	const [quantity, setQuantity] = useState('');
 
 	//#endregion
-
-	/* ____________________________Dynamic Form_________________ */
-
-	/* VAT Service/Item */
 
 	const [allForms, setAllForms] = useState([{description: '', price: 0, quantity: 1, VAT: VAT}]);
 
@@ -71,34 +65,15 @@ export default function CreateInvoice() {
 		setAllForms(values);
 	};
 
-	/* ______________________CalculationS_____________________________ */
-	/* ______________________CalculationS_____________________________ */
-	/* ______________________CalculationS_____________________________ */
-
-	/* VAT Service/Item */
-
 	const serviceVAT = 0.19;
-
-	/* totalPrice (net) */
 
 	const totalPrice = allForms.reduce((total, all) => {
 		console.log({total, all});
 		return total + all.quantity * all.price;
 	}, 0);
 
-
 	const totalVAT = totalPrice * serviceVAT;
 	const grandTotal = totalPrice + totalVAT;
-
-
-	/* ---------------------TO DO LIST------------------ 
-	------nur bis 2 tizedesig---------------
-	------ausfüllen----------
-	-----const grandTotal = totalPrice + totalVAT;
-	-------szöveg text limit*/
-
-	/* __________________________INVOICE________________________ */
-
 
 	return (
 		<div>
@@ -127,9 +102,7 @@ export default function CreateInvoice() {
 						<li>Nr:</li>
 						<li>Service:</li>
 
-
 						<li>price (net):</li>
-
 
 						<li>VAT: {VAT}%</li>
 
@@ -137,18 +110,6 @@ export default function CreateInvoice() {
 						<div>Subtotal</div>
 					</Wrapper>
 
-					{/* __________________________________________________________________________________ */}
-					{/* __________________________________________________________________________________ */}
-					{/* __________________________________________________________________________________ */}
-					{/* __________________________________________________________________________________ */}
-					{/* __________________________________________________________________________________ */}
-					{/* __________________________________________________________________________________ */}
-
-					{/* __________________________________________________________________________________ */}
-					{/* __________________________________________________________________________________ */}
-					{/* __________________________________________________________________________________ */}
-					{/* __________________________________________________________________________________ */}
-					{/* __________________________________________________________________________________ */}
 					<>
 						{allForms.map((allForm, index) => (
 							<Wrapper key={index}>
@@ -174,12 +135,10 @@ export default function CreateInvoice() {
 						<div>{quantity}</div>
 					</Wrapper>
 
-
 					<h5>Total: {totalPrice} EUR (net)</h5>
 					<h5>Total VAT: {totalVAT} EUR </h5>
 
 					<h5>Grand Total: {grandTotal} EUR</h5>
-					{/*__________________________old calc___________________ */}
 
 					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 					<DisplayPaymentInfo
@@ -196,8 +155,6 @@ export default function CreateInvoice() {
 					}}
 				>
 					<Header />
-
-					{/* --------------User Data-------------- */}
 
 					<InputCard>
 						<h3>Your Data</h3>
@@ -237,9 +194,8 @@ export default function CreateInvoice() {
 							placeholder="e.g. 34567890890"
 							value={taxID}
 							onChange={event => setTaxID(event.target.value)}
-
 						/>
-						{/* <label htmlFor="paymentmethod">Payment method*</label> */}
+
 						<select
 							onChange={event => {
 								const {value} = event.target;
@@ -258,10 +214,9 @@ export default function CreateInvoice() {
 							paymentMethod={paymentMethod}
 							handleBankNameChange={e => setBankName(e.target.value)}
 							handleIbanChange={e => setIbanNr(e.target.value)}
-
 						/>
 					</InputCard>
-					{/* _______________________Costumer Data_________________*/}
+
 					<InputCard>
 						<h3>Customer Data</h3>
 						<label htmlFor="recipientName">Name*</label>
@@ -324,16 +279,7 @@ export default function CreateInvoice() {
 							onChange={event => setQuantity(event.target.value)}
 						/>
 					</InputCard>
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
+
 					<article>
 						<div>
 							{allForms.map((form, index) => (
@@ -349,16 +295,6 @@ item or service:__________________________________________ */}
 							))}
 						</div>
 					</article>
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
-					{/* ___________________________details about your 
-item or service:__________________________________________ */}
 
 					<h1>
 						<button type="button" onClick={() => handleAddForms()}>
