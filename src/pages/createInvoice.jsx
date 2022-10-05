@@ -4,6 +4,7 @@ import StyledButton from '../components/Button/styled';
 import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
 import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
 import Header from '../components/Header';
+import HeaderInvoice from '../components/HeaderInvoice';
 import InputCard from '../components/Positioning/InputCard';
 import InputField from '../components/Positioning/InputField';
 import InvoiceServiceList from '../components/Positioning/InvoiceServiceList';
@@ -27,10 +28,6 @@ export default function CreateInvoice() {
 	const [recipientName, setRecipientName] = useState('');
 	const [recipientStreet, setRecipientStreet] = useState('');
 	const [recipientCity, setRecipientCity] = useState('');
-
-	const [service, setService] = useState('');
-	const [amount, setAmount] = useState('');
-	const [quantity, setQuantity] = useState('');
 
 	//#endregion
 
@@ -79,10 +76,8 @@ export default function CreateInvoice() {
 		<div>
 			{invoice ? (
 				<div>
-					<Wrapper>
-						<h4>Logo</h4>
-						<h4>InvoiceNr.</h4>
-					</Wrapper>
+					<HeaderInvoice setInvoice={setInvoice} />
+
 					<Wrapper>
 						<InputCard>
 							<li>Name: {name}</li>
@@ -129,18 +124,11 @@ export default function CreateInvoice() {
 						))}
 					</>
 
-					<Wrapper>
-						<div>{service}</div>
-						<div>{amount}</div>
-						<div>{quantity}</div>
-					</Wrapper>
-
 					<h5>Total: {totalPrice} EUR (net)</h5>
 					<h5>Total VAT: {totalVAT} EUR </h5>
 
 					<h5>Grand Total: {grandTotal} EUR</h5>
 
-					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 					<DisplayPaymentInfo
 						bankName={bankName}
 						ibanNr={ibanNr}
@@ -195,8 +183,9 @@ export default function CreateInvoice() {
 							value={taxID}
 							onChange={event => setTaxID(event.target.value)}
 						/>
-
+						<label htmlFor="select">Payment</label>
 						<select
+							id="select"
 							onChange={event => {
 								const {value} = event.target;
 								console.log(value);
@@ -245,38 +234,6 @@ export default function CreateInvoice() {
 							placeholder="e.g. Hamburg"
 							value={recipientCity}
 							onChange={event => setRecipientCity(event.target.value)}
-						/>
-					</InputCard>
-
-					<InputCard>
-						{' '}
-						<h3>Old Static Form / Your service </h3>
-						<label htmlFor="service">Description of your service/Item</label>
-						<input
-							type="text"
-							id="service"
-							name="service"
-							placeholder="Ux design"
-							value={service}
-							onChange={event => setService(event.target.value)}
-						/>
-						<label htmlFor="amount">price</label>
-						<input
-							type="number"
-							id="amount"
-							name="amount"
-							placeholder="amount in EUR"
-							value={amount}
-							onChange={event => setAmount(event.target.value)}
-						/>
-						<label htmlFor="amount">quantity</label>
-						<input
-							type="number"
-							id="quantity"
-							name="quantity"
-							placeholder="quantity in EUR"
-							value={quantity}
-							onChange={event => setQuantity(event.target.value)}
 						/>
 					</InputCard>
 
