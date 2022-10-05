@@ -4,6 +4,7 @@ import StyledButton from '../components/Button/styled';
 import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
 import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
 import Header from '../components/Header';
+import HeaderInvoice from '../components/HeaderInvoice';
 import InputCard from '../components/Positioning/InputCard';
 import InputField from '../components/Positioning/InputField';
 import InvoiceServiceList from '../components/Positioning/InvoiceServiceList';
@@ -60,9 +61,6 @@ export default function CreateInvoice() {
 		values.splice(index, 1);
 		setAllForms(values);
 	};
-	const handlePrintOut = () => {
-		window.print();
-	};
 
 	const serviceVAT = 0.19;
 
@@ -78,11 +76,8 @@ export default function CreateInvoice() {
 		<div>
 			{invoice ? (
 				<div>
-					<Wrapper>
-						<h4>Logo</h4>
-						<h4>InvoiceNr.</h4>
-						<StyledButton onClick={handlePrintOut}>Print Out Invoice</StyledButton>
-					</Wrapper>
+					<HeaderInvoice setInvoice={setInvoice} />
+
 					<Wrapper>
 						<InputCard>
 							<li>Name: {name}</li>
@@ -134,7 +129,6 @@ export default function CreateInvoice() {
 
 					<h5>Grand Total: {grandTotal} EUR</h5>
 
-					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 					<DisplayPaymentInfo
 						bankName={bankName}
 						ibanNr={ibanNr}
