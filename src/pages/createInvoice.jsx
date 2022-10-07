@@ -85,6 +85,7 @@ export default function CreateInvoice() {
 					trigger={() => <button>Print out</button>}
 					content={() => componentRef.current}
 				/>
+				<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 			</div>
 
 			{invoice ? (
@@ -151,7 +152,6 @@ export default function CreateInvoice() {
 
 						<h5>Grand Total: {grandTotal} EUR</h5>
 
-						<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 						<DisplayPaymentInfo
 							bankName={bankName}
 							ibanNr={ibanNr}
