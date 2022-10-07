@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import {Fragment, useState, useRef} from 'react';
+import ReactToPrint from 'react-to-print';
 
 import StyledButton from '../components/Button/styled';
 import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
@@ -35,6 +36,8 @@ export default function CreateInvoice() {
 	//#endregion
 
 	const [allForms, setAllForms] = useState([{description: '', price: 0, quantity: 1, VAT: VAT}]);
+
+	const componentRef = useRef();
 
 	const handleAddForms = () => {
 		const values = [...allForms];
@@ -77,76 +80,85 @@ export default function CreateInvoice() {
 
 	return (
 		<div>
+			<div>
+				<ReactToPrint
+					trigger={() => <button>Print out</button>}
+					content={() => componentRef.current}
+				/>
+			</div>
+
 			{invoice ? (
-				<div>
-					<Wrapper>
-						<h4>Logo</h4>
-						<h4>InvoiceNr.</h4>
-					</Wrapper>
-					<Wrapper>
-						<InputCard>
-							<li>Name: {name}</li>
-							<li>Adress: {street}</li>
-							<li>City: {city}</li>
-							<li>TAX ID: {taxID}</li>
-							<li>Paymentmethod: {paymentMethod}</li>
-						</InputCard>
+				<Fragment>
+					<div ref={componentRef}>
+						<Wrapper>
+							<h4>Logo</h4>
+							<h4>InvoiceNr.</h4>
+						</Wrapper>
+						<Wrapper>
+							<InputCard>
+								<li>Name: {name}</li>
+								<li>Adress: {street}</li>
+								<li>City: {city}</li>
+								<li>TAX ID: {taxID}</li>
+								<li>Paymentmethod: {paymentMethod}</li>
+							</InputCard>
 
-						<InputCard>
-							<li>Name:{recipientName}</li>
-							<li>Adress:{recipientStreet}</li>
-							<li>City:{recipientCity}</li>
-						</InputCard>
-					</Wrapper>
-					<Wrapper>
-						<li>Nr:</li>
-						<li>Service:</li>
+							<InputCard>
+								<li>Name:{recipientName}</li>
+								<li>Adress:{recipientStreet}</li>
+								<li>City:{recipientCity}</li>
+							</InputCard>
+						</Wrapper>
+						<Wrapper>
+							<li>Nr:</li>
+							<li>Service:</li>
 
-						<li>price (net):</li>
+							<li>price (net):</li>
 
-						<li>VAT: {VAT}%</li>
+							<li>VAT: {VAT}%</li>
 
-						<li>QTY:</li>
-						<div>Subtotal</div>
-					</Wrapper>
+							<li>QTY:</li>
+							<div>Subtotal</div>
+						</Wrapper>
 
-					<>
-						{allForms.map((allForm, index) => (
-							<Wrapper key={index}>
-								<InvoiceServiceList>{index + 1}</InvoiceServiceList>
-								<InvoiceServiceList>{allForm.description}</InvoiceServiceList>
-								<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
+						<>
+							{allForms.map((allForm, index) => (
+								<Wrapper key={index}>
+									<InvoiceServiceList>{index + 1}</InvoiceServiceList>
+									<InvoiceServiceList>{allForm.description}</InvoiceServiceList>
+									<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
 
-								<InvoiceServiceList>
-									{(allForm.VAT / 100) * allForm.price}EUR
-								</InvoiceServiceList>
-								<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
+									<InvoiceServiceList>
+										{(allForm.VAT / 100) * allForm.price}EUR
+									</InvoiceServiceList>
+									<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
 
-								<InvoiceServiceList>
-									{allForm.price * allForm.quantity}EUR
-								</InvoiceServiceList>
-							</Wrapper>
-						))}
-					</>
+									<InvoiceServiceList>
+										{allForm.price * allForm.quantity}EUR
+									</InvoiceServiceList>
+								</Wrapper>
+							))}
+						</>
 
-					<Wrapper>
-						<div>{service}</div>
-						<div>{amount}</div>
-						<div>{quantity}</div>
-					</Wrapper>
+						<Wrapper>
+							<div>{service}</div>
+							<div>{amount}</div>
+							<div>{quantity}</div>
+						</Wrapper>
 
-					<h5>Total: {totalPrice} EUR (net)</h5>
-					<h5>Total VAT: {totalVAT} EUR </h5>
+						<h5>Total: {totalPrice} EUR (net)</h5>
+						<h5>Total VAT: {totalVAT} EUR </h5>
 
-					<h5>Grand Total: {grandTotal} EUR</h5>
+						<h5>Grand Total: {grandTotal} EUR</h5>
 
-					<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
-					<DisplayPaymentInfo
-						bankName={bankName}
-						ibanNr={ibanNr}
-						paymentMethod={paymentMethod}
-					/>
-				</div>
+						<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
+						<DisplayPaymentInfo
+							bankName={bankName}
+							ibanNr={ibanNr}
+							paymentMethod={paymentMethod}
+						/>
+					</div>
+				</Fragment>
 			) : (
 				<form
 					onSubmit={event => {
