@@ -6,12 +6,10 @@ const LandingPageContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	padding: 20px;
-	width: 100%;
-	max-width: 350px;
 	color: white;
-	text-align: center;
 	font-weight: 400;
 	line-height: 2rem;
+	text-align: center;
 `;
 
 export default LandingPageContainer;

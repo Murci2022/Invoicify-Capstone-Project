@@ -5,6 +5,7 @@ import StyledButton from '../components/Button/styled';
 import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
 import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
 import Header from '../components/Header';
+import CenterElement from '../components/Positioning/CenterElement';
 import InputCard from '../components/Positioning/InputCard';
 import InputField from '../components/Positioning/InputField';
 import InvoiceServiceList from '../components/Positioning/InvoiceServiceList';
@@ -149,136 +150,144 @@ export default function CreateInvoice() {
 					</div>
 				</Fragment>
 			) : (
-				<form
-					onSubmit={event => {
-						event.preventDefault();
-						setInvoice(true);
-					}}
-				>
+				<Fragment>
 					<Header />
-
-					<InputCard>
-						<Service>
-							<h3>Your Data</h3>
-						</Service>
-
-						<label htmlFor="name">Name*</label>
-						<InputField
-							type="text"
-							id="name"
-							name="name"
-							placeholder="e.g. Susan Baltimore"
-							value={name}
-							onChange={event => setName(event.target.value)}
-						/>
-						<label htmlFor="street">Street*</label>
-						<InputField
-							type="text"
-							id="street"
-							name="street"
-							placeholder="e.g. Filimore Street"
-							value={street}
-							onChange={event => setStreet(event.target.value)}
-						/>
-						<label htmlFor="name">City*</label>
-						<InputField
-							type="text"
-							id="city"
-							name="city"
-							placeholder="e.g. London"
-							value={city}
-							onChange={event => setCity(event.target.value)}
-						/>
-
-						<label htmlFor="name">Tax ID*</label>
-						<InputField
-							type="number"
-							id="taxID"
-							name="taxID"
-							placeholder="e.g. 34567890890"
-							value={taxID}
-							onChange={event => setTaxID(event.target.value)}
-						/>
-
-						<select
-							onChange={event => {
-								const {value} = event.target;
-								console.log(value);
-								setPaymentMethod(value);
+					<CenterElement>
+						<form
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								alignItems: 'center',
+								justifyContetnt: 'Center',
+							}}
+							onSubmit={event => {
+								event.preventDefault();
+								setInvoice(true);
 							}}
 						>
-							<option value="select">--select--</option>
-							<option value="bank">bank transfer</option>
-							<option value="cash">cash</option>
-						</select>
+							<InputCard>
+								<Service>
+									<h3>Your Data</h3>
+								</Service>
 
-						<CheckPaymentInfo
-							bankName={bankName}
-							ibanNr={ibanNr}
-							paymentMethod={paymentMethod}
-							handleBankNameChange={e => setBankName(e.target.value)}
-							handleIbanChange={e => setIbanNr(e.target.value)}
-						/>
-					</InputCard>
-
-					<InputCard>
-						<Service>
-							<h3>Customer Data</h3>
-						</Service>
-
-						<label htmlFor="recipientName">Name*</label>
-						<InputField
-							type="text"
-							id="recipientName"
-							name="recipientName"
-							placeholder="e.g. John Dylen"
-							value={recipientName}
-							onChange={event => setRecipientName(event.target.value)}
-						/>
-						<label htmlFor="recipientStreet">Street*</label>
-						<InputField
-							type="text"
-							id="recipientStreet"
-							name="recipientStreet"
-							placeholder="e.g. Som Street"
-							value={recipientStreet}
-							onChange={event => setRecipientStreet(event.target.value)}
-						/>
-						<label htmlFor="recipientCity">City*</label>
-						<InputField
-							type="text"
-							id="recipientCity"
-							name="recipientCity"
-							placeholder="e.g. Hamburg"
-							value={recipientCity}
-							onChange={event => setRecipientCity(event.target.value)}
-						/>
-					</InputCard>
-
-					<article>
-						<div>
-							{allForms.map((form, index) => (
-								<ServiceForm
-									key={index}
-									form={form}
-									serviceNumber={index + 1}
-									onCancel={() => handleRemoveCard(index)}
-									onChange={(event, type) =>
-										handleInputChange(index, event, type)
-									}
+								<label htmlFor="name">Name*</label>
+								<InputField
+									type="text"
+									id="name"
+									name="name"
+									placeholder="e.g. Susan Baltimore"
+									value={name}
+									onChange={event => setName(event.target.value)}
 								/>
-							))}
-						</div>
-						<InputCard>
-							<h1>
-								<button type="button" onClick={() => handleAddForms()}>
-									Add more Service/Item
-								</button>
-							</h1>
-							<StyledButton type="submit">Submit</StyledButton>
-						</InputCard>
-					</article>
-				</form>
+								<label htmlFor="street">Street*</label>
+								<InputField
+									type="text"
+									id="street"
+									name="street"
+									placeholder="e.g. Filimore Street"
+									value={street}
+									onChange={event => setStreet(event.target.value)}
+								/>
+								<label htmlFor="name">City*</label>
+								<InputField
+									type="text"
+									id="city"
+									name="city"
+									placeholder="e.g. London"
+									value={city}
+									onChange={event => setCity(event.target.value)}
+								/>
+
+								<label htmlFor="name">Tax ID*</label>
+								<InputField
+									type="number"
+									id="taxID"
+									name="taxID"
+									placeholder="e.g. 34567890890"
+									value={taxID}
+									onChange={event => setTaxID(event.target.value)}
+								/>
+
+								<Wrapper>
+									<label htmlFor="select">Payment method:</label>
+									<select
+										onChange={event => {
+											const {value} = event.target;
+											console.log(value);
+											setPaymentMethod(value);
+										}}
+									>
+										<option value="select">--select--</option>
+										<option value="bank">bank transfer</option>
+										<option value="cash">cash</option>
+									</select>
+								</Wrapper>
+
+								<CheckPaymentInfo
+									bankName={bankName}
+									ibanNr={ibanNr}
+									paymentMethod={paymentMethod}
+									handleBankNameChange={e => setBankName(e.target.value)}
+									handleIbanChange={e => setIbanNr(e.target.value)}
+								/>
+							</InputCard>
+
+							<InputCard>
+								<Service>
+									<h3>Customer Data</h3>
+								</Service>
+
+								<label htmlFor="recipientName">Name*</label>
+								<InputField
+									type="text"
+									id="recipientName"
+									name="recipientName"
+									placeholder="e.g. John Dylen"
+									value={recipientName}
+									onChange={event => setRecipientName(event.target.value)}
+								/>
+								<label htmlFor="recipientStreet">Street*</label>
+								<InputField
+									type="text"
+									id="recipientStreet"
+									name="recipientStreet"
+									placeholder="e.g. Som Street"
+									value={recipientStreet}
+									onChange={event => setRecipientStreet(event.target.value)}
+								/>
+								<label htmlFor="recipientCity">City*</label>
+								<InputField
+									type="text"
+									id="recipientCity"
+									name="recipientCity"
+									placeholder="e.g. Hamburg"
+									value={recipientCity}
+									onChange={event => setRecipientCity(event.target.value)}
+								/>
+							</InputCard>
+
+							<article>
+								<div>
+									{allForms.map((form, index) => (
+										<ServiceForm
+											key={index}
+											form={form}
+											serviceNumber={index + 1}
+											onCancel={() => handleRemoveCard(index)}
+											onChange={(event, type) =>
+												handleInputChange(index, event, type)
+											}
+										/>
+									))}
+								</div>
+								<StyledButton type="submit">Submit</StyledButton>
+							</article>
+						</form>
+						<button type="button" onClick={() => handleAddForms()}>
+							Add more Service/Item
+						</button>
+					</CenterElement>
+				</Fragment>
 			)}
 		</div>
 	);

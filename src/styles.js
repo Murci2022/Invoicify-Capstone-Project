@@ -6,11 +6,9 @@ export const GlobalStyle = createGlobalStyle`
 	*::after {
 		box-sizing: border-box;
 	}
-	
+
 	html {
-        font-family: 'Raleway', sans-serif;
 		font-size: 16px;
-		
 	}
 
 	body {
