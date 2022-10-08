@@ -4,10 +4,10 @@ const CenterElement = styled.div`
 	flex-direction: column;
 	flex-wrap: wrap;
 	width: 80%;
+	height: 100vh;
 	margin: 0 auto;
 	padding: 20px;
 	border: 1px solid red;
-	height: 100vh;
 `;
 
 export default CenterElement;
