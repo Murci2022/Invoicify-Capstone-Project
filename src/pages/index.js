@@ -17,14 +17,19 @@ export default function HomePage() {
 			<>
 				<LandingPageBody>
 					<LandingPageContainer>
-						<h1>Welcome to Invoicify!!!!</h1>
-						<p>Lorem ipsum</p>
+						<h1> INVOICIFY</h1>
+						<p>
+							you can create your invoices in a simple way, on your lap-top or from
+							your mobil-device == print out, send it or save it in your local
+							storage.
+						</p>
 						<StyledButton>
 							<Link href="/createInvoice">
-								<h4>Let``s Start</h4>
+								<h3>Let``s Start</h3>
 							</Link>
 						</StyledButton>
 					</LandingPageContainer>
+
 					<LandingPageContainer>
 						<Image
 							src="/2.png"

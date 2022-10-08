@@ -76,16 +76,15 @@ export default function CreateInvoice() {
 
 	return (
 		<div>
-			<div>
-				<ReactToPrint
-					trigger={() => <button>Print out</button>}
-					content={() => componentRef.current}
-				/>
-				<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
-			</div>
-
 			{invoice ? (
 				<Fragment>
+					<div>
+						<ReactToPrint
+							trigger={() => <button>Print out</button>}
+							content={() => componentRef.current}
+						/>
+						<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
+					</div>
 					<div ref={componentRef}>
 						<Wrapper>
 							<h4>Logo</h4>
@@ -159,9 +158,12 @@ export default function CreateInvoice() {
 					<Header />
 
 					<InputCard>
-						<h3>Your Data</h3>
+						<Service>
+							<h3>Your Data</h3>
+						</Service>
+
 						<label htmlFor="name">Name*</label>
-						<input
+						<InputField
 							type="text"
 							id="name"
 							name="name"
@@ -170,7 +172,7 @@ export default function CreateInvoice() {
 							onChange={event => setName(event.target.value)}
 						/>
 						<label htmlFor="street">Street*</label>
-						<input
+						<InputField
 							type="text"
 							id="street"
 							name="street"
@@ -179,7 +181,7 @@ export default function CreateInvoice() {
 							onChange={event => setStreet(event.target.value)}
 						/>
 						<label htmlFor="name">City*</label>
-						<input
+						<InputField
 							type="text"
 							id="city"
 							name="city"
@@ -189,7 +191,7 @@ export default function CreateInvoice() {
 						/>
 
 						<label htmlFor="name">Tax ID*</label>
-						<input
+						<InputField
 							type="number"
 							id="taxID"
 							name="taxID"
@@ -220,9 +222,12 @@ export default function CreateInvoice() {
 					</InputCard>
 
 					<InputCard>
-						<h3>Customer Data</h3>
+						<Service>
+							<h3>Customer Data</h3>
+						</Service>
+
 						<label htmlFor="recipientName">Name*</label>
-						<input
+						<InputField
 							type="text"
 							id="recipientName"
 							name="recipientName"
@@ -231,7 +236,7 @@ export default function CreateInvoice() {
 							onChange={event => setRecipientName(event.target.value)}
 						/>
 						<label htmlFor="recipientStreet">Street*</label>
-						<input
+						<InputField
 							type="text"
 							id="recipientStreet"
 							name="recipientStreet"
@@ -240,7 +245,7 @@ export default function CreateInvoice() {
 							onChange={event => setRecipientStreet(event.target.value)}
 						/>
 						<label htmlFor="recipientCity">City*</label>
-						<input
+						<InputField
 							type="text"
 							id="recipientCity"
 							name="recipientCity"
@@ -264,14 +269,15 @@ export default function CreateInvoice() {
 								/>
 							))}
 						</div>
+						<InputCard>
+							<h1>
+								<button type="button" onClick={() => handleAddForms()}>
+									Add more Service/Item
+								</button>
+							</h1>
+							<StyledButton type="submit">Submit</StyledButton>
+						</InputCard>
 					</article>
-
-					<h1>
-						<button type="button" onClick={() => handleAddForms()}>
-							Add more Service/Item
-						</button>
-					</h1>
-					<StyledButton type="submit">Submit</StyledButton>
 				</form>
 			)}
 		</div>
@@ -284,60 +290,50 @@ function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 	const [quantity, setQuantity] = useState(form.quantity);
 	return (
 		<InputCard>
-			<Service>
-				<h4>Your service</h4>
-				<h4>{serviceNumber}</h4>
-			</Service>
-			<div>
-				<label htmlFor="description">Description of your service/Item</label>
-
+			<Wrapper>
+				<h3>{serviceNumber}</h3>
+				<h4>Your service </h4>
 				<div>
-					<InputField
-						type="text"
-						name="description"
-						placeholder="Enter description"
-						value={description}
-						onChange={event => {
-							setDescription(event.target.value);
-							onChange(event);
-						}}
-					/>
+					<button onClick={onCancel}>X</button>
 				</div>
+			</Wrapper>
+			<label htmlFor="description">Description of your service/Item</label>
 
-				<div>
-					<li>
-						<label htmlFor="description">Price</label>
-						<InputField
-							type="number"
-							step=".10"
-							name="price"
-							placeholder="Enter price"
-							value={price}
-							onChange={event => {
-								setPrice(event.target.value);
-								onChange(event, 'number');
-							}}
-						/>
-					</li>
-				</div>
-				<div>
-					<li>
-						<label htmlFor="description">Quantity</label>
-						<InputField
-							type="number"
-							name="quantity"
-							placeholder="Enter quantity"
-							value={quantity}
-							onChange={event => {
-								setQuantity(event.target.value);
-								onChange(event, 'number');
-							}}
-						/>
-					</li>
-				</div>
-			</div>
+			<InputField
+				type="text"
+				name="description"
+				placeholder="Enter description"
+				value={description}
+				onChange={event => {
+					setDescription(event.target.value);
+					onChange(event);
+				}}
+			/>
 
-			<button onClick={onCancel}>Cancel</button>
+			<label htmlFor="description">Price</label>
+			<InputField
+				type="number"
+				step=".10"
+				name="price"
+				placeholder="Enter price"
+				value={price}
+				onChange={event => {
+					setPrice(event.target.value);
+					onChange(event, 'number');
+				}}
+			/>
+
+			<label htmlFor="description">Quantity</label>
+			<InputField
+				type="number"
+				name="quantity"
+				placeholder="Enter quantity"
+				value={quantity}
+				onChange={event => {
+					setQuantity(event.target.value);
+					onChange(event, 'number');
+				}}
+			/>
 		</InputCard>
 	);
 }

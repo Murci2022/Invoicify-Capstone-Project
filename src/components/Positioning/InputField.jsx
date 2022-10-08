@@ -5,7 +5,7 @@ const InputField = styled.input`
 	flex-direction: column;
 	align-items: center;
 	padding: 5px;
-	border: 1px solid black;
+	border: 10px solid black;
 `;
 
 export default InputField;
