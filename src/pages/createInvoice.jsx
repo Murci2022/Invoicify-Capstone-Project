@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import CenterElement from '../components/Positioning/CenterElement';
 import InputCard from '../components/Positioning/InputCard';
 import InputField from '../components/Positioning/InputField';
+import InvoiceFooterPayment from '../components/Positioning/InvoiceFooterPayment';
 import InvoiceServiceList from '../components/Positioning/InvoiceServiceList';
 import Service from '../components/Positioning/Service';
 import Wrapper from '../components/Positioning/Wrapper';
@@ -86,68 +87,73 @@ export default function CreateInvoice() {
 						/>
 						<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 					</div>
-					<div ref={componentRef}>
-						<Wrapper>
-							<h4>Logo</h4>
-							<h4>InvoiceNr.</h4>
-						</Wrapper>
-						<Wrapper>
-							<InputCard>
-								<li>Name: {name}</li>
-								<li>Adress: {street}</li>
-								<li>City: {city}</li>
-								<li>TAX ID: {taxID}</li>
-								<li>Paymentmethod: {paymentMethod}</li>
-							</InputCard>
+					<CenterElement>
+						<div ref={componentRef}>
+							<Wrapper>
+								<h4>Logo</h4>
+								<h4>InvoiceNr.</h4>
+							</Wrapper>
+							<Wrapper>
+								<InputCard>
+									<li>Name: {name}</li>
+									<li>Adress: {street}</li>
+									<li>City: {city}</li>
+									<li>TAX ID: {taxID}</li>
+									<li>Paymentmethod: {paymentMethod}</li>
+								</InputCard>
 
-							<InputCard>
-								<li>Name:{recipientName}</li>
-								<li>Adress:{recipientStreet}</li>
-								<li>City:{recipientCity}</li>
-							</InputCard>
-						</Wrapper>
-						<Wrapper>
-							<li>Nr:</li>
-							<li>Service:</li>
+								<InputCard>
+									<li>Name:{recipientName}</li>
+									<li>Adress:{recipientStreet}</li>
+									<li>City:{recipientCity}</li>
+								</InputCard>
+							</Wrapper>
+							<Wrapper>
+								<li>Nr:</li>
+								<li>Service:</li>
 
-							<li>price (net):</li>
+								<li>price (net):</li>
 
-							<li>VAT: {VAT}%</li>
+								<li>VAT: {VAT}%</li>
 
-							<li>QTY:</li>
-							<div>Subtotal</div>
-						</Wrapper>
+								<li>QTY:</li>
+								<div>Subtotal</div>
+							</Wrapper>
 
-						<>
-							{allForms.map((allForm, index) => (
-								<Wrapper key={index}>
-									<InvoiceServiceList>{index + 1}</InvoiceServiceList>
-									<InvoiceServiceList>{allForm.description}</InvoiceServiceList>
-									<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
+							<>
+								{allForms.map((allForm, index) => (
+									<Wrapper key={index}>
+										<InvoiceServiceList>{index + 1}</InvoiceServiceList>
+										<InvoiceServiceList>
+											{allForm.description}
+										</InvoiceServiceList>
+										<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
 
-									<InvoiceServiceList>
-										{(allForm.VAT / 100) * allForm.price.toFixed(2)}EUR
-									</InvoiceServiceList>
-									<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
+										<InvoiceServiceList>
+											{(allForm.VAT / 100) * allForm.price.toFixed(2)}EUR
+										</InvoiceServiceList>
+										<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
 
-									<InvoiceServiceList>
-										{allForm.price * allForm.quantity}EUR
-									</InvoiceServiceList>
-								</Wrapper>
-							))}
-						</>
+										<InvoiceServiceList>
+											{allForm.price * allForm.quantity}EUR
+										</InvoiceServiceList>
+									</Wrapper>
+								))}
+							</>
 
-						<h5>Total: {totalPrice} EUR (net)</h5>
-						<h5>Total VAT: {totalVAT} EUR </h5>
+							<h5>Total: {totalPrice} EUR (net)</h5>
+							<h5>Total VAT: {totalVAT} EUR </h5>
 
-						<h5>Grand Total: {grandTotal} EUR</h5>
-
-						<DisplayPaymentInfo
-							bankName={bankName}
-							ibanNr={ibanNr}
-							paymentMethod={paymentMethod}
-						/>
-					</div>
+							<h5>Grand Total: {grandTotal} EUR</h5>
+							<InvoiceFooterPayment>
+								<DisplayPaymentInfo
+									bankName={bankName}
+									ibanNr={ibanNr}
+									paymentMethod={paymentMethod}
+								/>
+							</InvoiceFooterPayment>
+						</div>
+					</CenterElement>
 				</Fragment>
 			) : (
 				<Fragment>
@@ -280,12 +286,14 @@ export default function CreateInvoice() {
 										/>
 									))}
 								</div>
-								<StyledButton type="submit">Submit</StyledButton>
+								<InputCard>
+									<button type="button" onClick={() => handleAddForms()}>
+										Add more Service/Item
+									</button>
+									<StyledButton type="submit">Submit</StyledButton>{' '}
+								</InputCard>
 							</article>
 						</form>
-						<button type="button" onClick={() => handleAddForms()}>
-							Add more Service/Item
-						</button>
 					</CenterElement>
 				</Fragment>
 			)}
