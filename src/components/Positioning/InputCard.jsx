@@ -5,7 +5,7 @@ const InputCard = styled.form`
 	flex-direction: column;
 	margin: 20px;
 	padding: 5px;
-	border: 1px solid black;
+	border: 1px black;
 	list-style: none;
 `;
 

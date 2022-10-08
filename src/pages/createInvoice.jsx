@@ -29,10 +29,6 @@ export default function CreateInvoice() {
 	const [recipientStreet, setRecipientStreet] = useState('');
 	const [recipientCity, setRecipientCity] = useState('');
 
-	const [service, setService] = useState('');
-	const [amount, setAmount] = useState('');
-	const [quantity, setQuantity] = useState('');
-
 	//#endregion
 
 	const [allForms, setAllForms] = useState([{description: '', price: 0, quantity: 1, VAT: VAT}]);
@@ -130,7 +126,7 @@ export default function CreateInvoice() {
 									<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
 
 									<InvoiceServiceList>
-										{(allForm.VAT / 100) * allForm.price}EUR
+										{(allForm.VAT / 100) * allForm.price.toFixed(2)}EUR
 									</InvoiceServiceList>
 									<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
 
@@ -140,12 +136,6 @@ export default function CreateInvoice() {
 								</Wrapper>
 							))}
 						</>
-
-						<Wrapper>
-							<div>{service}</div>
-							<div>{amount}</div>
-							<div>{quantity}</div>
-						</Wrapper>
 
 						<h5>Total: {totalPrice} EUR (net)</h5>
 						<h5>Total VAT: {totalVAT} EUR </h5>
@@ -260,38 +250,6 @@ export default function CreateInvoice() {
 						/>
 					</InputCard>
 
-					<InputCard>
-						{' '}
-						<h3>Old Static Form / Your service </h3>
-						<label htmlFor="service">Description of your service/Item</label>
-						<input
-							type="text"
-							id="service"
-							name="service"
-							placeholder="Ux design"
-							value={service}
-							onChange={event => setService(event.target.value)}
-						/>
-						<label htmlFor="amount">price</label>
-						<input
-							type="number"
-							id="amount"
-							name="amount"
-							placeholder="amount in EUR"
-							value={amount}
-							onChange={event => setAmount(event.target.value)}
-						/>
-						<label htmlFor="amount">quantity</label>
-						<input
-							type="number"
-							id="quantity"
-							name="quantity"
-							placeholder="quantity in EUR"
-							value={quantity}
-							onChange={event => setQuantity(event.target.value)}
-						/>
-					</InputCard>
-
 					<article>
 						<div>
 							{allForms.map((form, index) => (
@@ -350,7 +308,8 @@ function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 					<li>
 						<label htmlFor="description">Price</label>
 						<InputField
-							type="text"
+							type="number"
+							step=".10"
 							name="price"
 							placeholder="Enter price"
 							value={price}
@@ -365,7 +324,7 @@ function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 					<li>
 						<label htmlFor="description">Quantity</label>
 						<InputField
-							type="text"
+							type="number"
 							name="quantity"
 							placeholder="Enter quantity"
 							value={quantity}
