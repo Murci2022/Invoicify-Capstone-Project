@@ -18,8 +18,13 @@ export const GlobalStyle = createGlobalStyle`
 		font-size: 1rem;
 	}
 
-	ul{
+	a {
 		list-style: none;
+		color:white;
+	}
+	a:hover {
+		
+		color:red;
 	}
 	.my__link {
 		background-color: red;

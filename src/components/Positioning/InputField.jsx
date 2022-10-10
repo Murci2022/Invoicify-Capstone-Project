@@ -7,6 +7,7 @@ const InputField = styled.input`
 	margin-bottom: 15px;
 	padding: 5px;
 	border-bottom: 1px solid black;
+	font-size: 16px;
 `;
 
 export default InputField;

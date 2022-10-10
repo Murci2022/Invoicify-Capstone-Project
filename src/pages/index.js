@@ -1,9 +1,11 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import BottomLine from '../components/Positioning/BottomLine';
 import LandingPageBody from '../components/Positioning/LandingPageBody';
 import LandingPageContainer from '../components/Positioning/LandingPageContainer';
+import {imageLoader} from '../utils/ImageLoader';
 
 export default function HomePage() {
 	return (
@@ -13,6 +15,16 @@ export default function HomePage() {
 				<meta key="description" name="description" content="This is my project" />
 			</Head>
 			<LandingPageContainer>
+				<BottomLine>
+					<Image
+						src="/my-Logo.png"
+						alt="mobile view"
+						width={300}
+						height={70}
+						objectFit="cover"
+						loader={imageLoader}
+					/>
+				</BottomLine>
 				<p>
 					Invoicify is an easy solution, to create your invoices in a simple way, even
 					from your mobil-device. Print out, send it via email or save it in the local

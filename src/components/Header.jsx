@@ -6,11 +6,17 @@ export default function Header() {
 	return (
 		<header>
 			<Nav>
-				<Link href="/">Home</Link>
+				<Link href="/">
+					<li>Home</li>
+				</Link>
 
-				<Link href="/createInvoice">Create Invoice</Link>
+				<Link style={{textDecoration: 'none'}} href="/createInvoice">
+					<li>Create Invoice</li>
+				</Link>
 
-				<Link href="/about">About me</Link>
+				<Link href="/about">
+					<li>About me</li>
+				</Link>
 			</Nav>
 		</header>
 	);

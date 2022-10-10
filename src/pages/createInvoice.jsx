@@ -6,8 +6,10 @@ import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
 import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
 import Header from '../components/Header';
 import CenterElement from '../components/Positioning/CenterElement';
+import CenterElementPrintView from '../components/Positioning/CenterElementPrintView';
 import InputCard from '../components/Positioning/InputCard';
 import InputField from '../components/Positioning/InputField';
+import InputMenu from '../components/Positioning/InputMenu';
 import InvoiceFooterPayment from '../components/Positioning/InvoiceFooterPayment';
 import InvoiceServiceList from '../components/Positioning/InvoiceServiceList';
 import Service from '../components/Positioning/Service';
@@ -87,42 +89,43 @@ export default function CreateInvoice() {
 						/>
 						<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
 					</div>
-					<CenterElement>
+					<CenterElementPrintView>
 						<div ref={componentRef}>
 							<Wrapper>
 								<h4>Logo</h4>
 								<h4>InvoiceNr.</h4>
 							</Wrapper>
 							<Wrapper>
-								<InputCard>
+								<InputCard margin="10px">
 									<li>Name: {name}</li>
 									<li>Adress: {street}</li>
 									<li>City: {city}</li>
 									<li>TAX ID: {taxID}</li>
-									<li>Paymentmethod: {paymentMethod}</li>
 								</InputCard>
 
-								<InputCard>
+								<InputCard margin="10px">
 									<li>Name:{recipientName}</li>
 									<li>Adress:{recipientStreet}</li>
 									<li>City:{recipientCity}</li>
 								</InputCard>
 							</Wrapper>
 							<Wrapper>
-								<li>Nr:</li>
-								<li>Service:</li>
+								<InputMenu>
+									<li>Nr:</li>
+									<li>Service:</li>
 
-								<li>price (net):</li>
+									<li>price (net):</li>
 
-								<li>VAT: {VAT}%</li>
+									<li>VAT: {VAT}%</li>
 
-								<li>QTY:</li>
-								<div>Subtotal</div>
+									<li>QTY:</li>
+									<div>Subtotal</div>
+								</InputMenu>
 							</Wrapper>
 
 							<>
 								{allForms.map((allForm, index) => (
-									<Wrapper key={index}>
+									<InputMenu key={index}>
 										<InvoiceServiceList>{index + 1}</InvoiceServiceList>
 										<InvoiceServiceList>
 											{allForm.description}
@@ -137,14 +140,14 @@ export default function CreateInvoice() {
 										<InvoiceServiceList>
 											{allForm.price * allForm.quantity}EUR
 										</InvoiceServiceList>
-									</Wrapper>
+									</InputMenu>
 								))}
 							</>
 
-							<h5>Total: {totalPrice} EUR (net)</h5>
-							<h5>Total VAT: {totalVAT} EUR </h5>
+							<h3>Total: {totalPrice} EUR (net)</h3>
+							<h3>Total VAT: {totalVAT} EUR </h3>
 
-							<h5>Grand Total: {grandTotal} EUR</h5>
+							<h3>Grand Total: {grandTotal} EUR</h3>
 							<InvoiceFooterPayment>
 								<DisplayPaymentInfo
 									bankName={bankName}
@@ -153,10 +156,10 @@ export default function CreateInvoice() {
 								/>
 							</InvoiceFooterPayment>
 						</div>
-					</CenterElement>
+					</CenterElementPrintView>
 				</Fragment>
 			) : (
-				<>
+				<Fragment>
 					<Header />
 					<CenterElement>
 						<form
@@ -224,7 +227,7 @@ export default function CreateInvoice() {
 										}}
 									>
 										<option value="select">--select--</option>
-										<option value="bank">bank transfer</option>
+										<option value="bank transfer">bank transfer</option>
 										<option value="cash">cash</option>
 									</select>
 								</Wrapper>
@@ -295,7 +298,7 @@ export default function CreateInvoice() {
 							</article>
 						</form>
 					</CenterElement>
-				</>
+				</Fragment>
 			)}
 		</div>
 	);
