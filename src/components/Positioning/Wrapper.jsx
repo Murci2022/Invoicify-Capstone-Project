@@ -5,7 +5,6 @@ const Wrapper = styled.div`
 	align-items: center;
 	justify-content: space-around;
 	border: 1px solid black;
-	list-style: none;
 `;
 
 export default Wrapper;

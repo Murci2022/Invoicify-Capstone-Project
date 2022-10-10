@@ -4,14 +4,15 @@ const LandingPageContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	width: 50%;
-	margin: 40px;
+	width: 100%;
+	max-width: 450px;
+	margin: 5px 5px 20px 5px;
 	padding: 20px;
 	color: white;
 	font-family: 'Raleway', sans-serif;
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	font-weight: 100;
-	line-height: 3rem;
+	line-height: 1.8rem;
 	text-align: center;
 `;
 

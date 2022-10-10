@@ -6,7 +6,7 @@ const Service = styled.div`
 	justify-content: space-between;
 	margin-bottom: 15px;
 	padding: 0 10px;
-	border: 1px solid black;
+	border-bottom: 1px solid black;
 `;
 
 export default Service;

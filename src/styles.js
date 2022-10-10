@@ -1,6 +1,7 @@
 import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+
 	*,
 	*::before,
 	*::after {
@@ -8,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	html {
+		font-family: 'Raleway', sans-serif;
 		font-size: 16px;
 	}
 
@@ -15,4 +17,17 @@ export const GlobalStyle = createGlobalStyle`
 		margin: 0;
 		font-size: 1rem;
 	}
+
+	ul{
+		list-style: none;
+	}
+	.my__link {
+		background-color: red;
+		list-style: none;
+		color: white;
+
+		
+	}
+
+	
 `;

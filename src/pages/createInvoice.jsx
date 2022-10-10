@@ -156,7 +156,7 @@ export default function CreateInvoice() {
 					</CenterElement>
 				</Fragment>
 			) : (
-				<Fragment>
+				<>
 					<Header />
 					<CenterElement>
 						<form
@@ -295,7 +295,7 @@ export default function CreateInvoice() {
 							</article>
 						</form>
 					</CenterElement>
-				</Fragment>
+				</>
 			)}
 		</div>
 	);
