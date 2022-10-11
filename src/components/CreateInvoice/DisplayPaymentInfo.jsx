@@ -1,7 +1,7 @@
 import Wrapper from '../Positioning/Wrapper';
 
 export const DisplayPaymentInfo = ({bankName, ibanNr, paymentMethod}) => {
-	if (paymentMethod === 'bank') {
+	if (paymentMethod === 'bank transfer') {
 		return (
 			<Wrapper>
 				<Wrapper>

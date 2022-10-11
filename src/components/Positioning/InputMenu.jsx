@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 const InputMenu = styled.div`
-	font-size: 10px;
+	font-size: 16px;
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	margin: 60px 20px 20px 20px;
 	padding: 5px;
 	border: 1px black;
 	list-style: none;
