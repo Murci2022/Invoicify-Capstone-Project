@@ -19,8 +19,9 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	a {
-		list-style: none;
 		color:white;
+		list-style: none;
+		
 	}
 	a:hover {
 		
@@ -28,8 +29,9 @@ export const GlobalStyle = createGlobalStyle`
 	}
 	.my__link {
 		background-color: red;
-		list-style: none;
 		color: white;
+		list-style: none;
+		
 	}
 		
 
@@ -92,47 +94,38 @@ select{
 }
 
 .option {
+	height: 40px;
 	background-color: black;
 	color: white;
-	height: 40px;
+	
 }
 
-.btn {
-  width: 180px;
+.invoice__btn-print {
+	width: 180px;
   height: 60px;
-  cursor: pointer;
-  background: transparent;
-  border: 1px solid #91C9FF;
-  outline: none;
   transition: 1s ease-in-out;
+  border: 1px solid #91C9FF;
+  border-radius: 5px;
+  outline: none;
+  background: #fae;
+  color: #000;
+  font-size: 24px; 
+  cursor: pointer;
+
 }
 
 .invoice__btn {
 	width: 180px;
   height: 60px;
-  cursor: pointer;
-  background: transparent;
-  border: 1px solid #91C9FF;
-  outline: none;
   transition: 1s ease-in-out;
-  font-size: 24px;
+  border: 1px solid #91C9FF;
+  border-radius: 5px;
+  outline: none;
+  background: white;
+  color: #000;
+  font-size: 24px; 
+  cursor: pointer;
 
-}
-
-
-
-h2 {
-	font-family: rale;
-}
-
-.invoice__payment {
-	position: absolute;
-	bottom: 0;
-	background-color: red;
-
-
-
-	border: 1px dotted black;
 }
 
 .invoice__head{
@@ -145,7 +138,6 @@ h2 {
 }
 
 .invoice__payment-holder{
-	
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 }

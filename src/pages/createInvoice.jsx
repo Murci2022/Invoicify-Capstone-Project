@@ -86,7 +86,9 @@ export default function CreateInvoice() {
 				<div>
 					<InvoiceButtonHolder>
 						<ReactToPrint
-							trigger={() => <button className="invoice__btn">Print out</button>}
+							trigger={() => (
+								<button className="invoice__btn-print">Print out</button>
+							)}
 							content={() => componentRef.current}
 						/>
 
