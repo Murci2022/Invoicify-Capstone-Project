@@ -1,19 +1,23 @@
 import Link from 'next/link';
 
-import Wrapper from './Positioning/Wrapper';
+import Nav from './Positioning/Nav';
 
 export default function Header() {
 	return (
 		<header>
-			<nav>
-				<Wrapper>
-					<Link href="/">Home</Link>
+			<Nav>
+				<Link href="/">
+					<li>Home</li>
+				</Link>
 
-					<Link href="/createInvoice">Create Invoice</Link>
+				<Link style={{textDecoration: 'none'}} href="/createInvoice">
+					<li>Create Invoice</li>
+				</Link>
 
-					<Link href="/about">About me</Link>
-				</Wrapper>
-			</nav>
+				<Link href="/about">
+					<li>About me</li>
+				</Link>
+			</Nav>
 		</header>
 	);
 }

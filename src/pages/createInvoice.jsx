@@ -5,9 +5,14 @@ import StyledButton from '../components/Button/styled';
 import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
 import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
 import Header from '../components/Header';
+import CenterElement from '../components/Positioning/CenterElement';
+import InputBody from '../components/Positioning/InputBody';
 import InputCard from '../components/Positioning/InputCard';
 import InputField from '../components/Positioning/InputField';
-import InvoiceServiceList from '../components/Positioning/InvoiceServiceList';
+import InvoiceButtonHolder from '../components/Positioning/InvoiceButtonHolder';
+import InvoiceInfoBlock from '../components/Positioning/InvoiceInfoBlock';
+import InvoiceInfoConti from '../components/Positioning/InvoiceInfoConti';
+import InvoiceTotalHolder from '../components/Positioning/InvoiceTotalHolder';
 import Service from '../components/Positioning/Service';
 import Wrapper from '../components/Positioning/Wrapper';
 
@@ -16,22 +21,19 @@ export default function CreateInvoice() {
 
 	//#region useStates
 	const [invoice, setInvoice] = useState(false);
+	const [invoiceNr, setInvoiceNr] = useState('');
 
 	const [name, setName] = useState('');
 	const [street, setStreet] = useState('');
 	const [city, setCity] = useState('');
 	const [taxID, setTaxID] = useState('');
-	const [paymentMethod, setPaymentMethod] = useState('cash');
+	const [paymentMethod, setPaymentMethod] = useState('bank transfer');
 	const [ibanNr, setIbanNr] = useState('');
 	const [bankName, setBankName] = useState('');
 
 	const [recipientName, setRecipientName] = useState('');
 	const [recipientStreet, setRecipientStreet] = useState('');
 	const [recipientCity, setRecipientCity] = useState('');
-
-	const [service, setService] = useState('');
-	const [amount, setAmount] = useState('');
-	const [quantity, setQuantity] = useState('');
 
 	//#endregion
 
@@ -79,244 +81,247 @@ export default function CreateInvoice() {
 	const grandTotal = totalPrice + totalVAT;
 
 	return (
-		<div>
-			<div>
-				<ReactToPrint
-					trigger={() => <button>Print out</button>}
-					content={() => componentRef.current}
-				/>
-				<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
-			</div>
-
+		<Fragment>
 			{invoice ? (
-				<Fragment>
-					<div ref={componentRef}>
-						<Wrapper>
-							<h4>Logo</h4>
-							<h4>InvoiceNr.</h4>
-						</Wrapper>
-						<Wrapper>
-							<InputCard>
+				<div>
+					<InvoiceButtonHolder>
+						<ReactToPrint
+							trigger={() => (
+								<button className="invoice__btn-print">Print out</button>
+							)}
+							content={() => componentRef.current}
+						/>
+
+						<button className="invoice__btn" onClick={() => setInvoice(false)}>
+							Edit
+						</button>
+					</InvoiceButtonHolder>
+
+					<div className="A4view" ref={componentRef}>
+						<div className="invoice__head">
+							<h4>Thank You!</h4>
+							<h4>InvoiceNr.{invoiceNr}</h4>
+						</div>
+						<InvoiceInfoConti>
+							<InvoiceInfoBlock>
 								<li>Name: {name}</li>
 								<li>Adress: {street}</li>
 								<li>City: {city}</li>
 								<li>TAX ID: {taxID}</li>
-								<li>Paymentmethod: {paymentMethod}</li>
-							</InputCard>
+							</InvoiceInfoBlock>
 
-							<InputCard>
+							<InvoiceInfoBlock>
 								<li>Name:{recipientName}</li>
 								<li>Adress:{recipientStreet}</li>
 								<li>City:{recipientCity}</li>
-							</InputCard>
-						</Wrapper>
-						<Wrapper>
-							<li>Nr:</li>
-							<li>Service:</li>
+							</InvoiceInfoBlock>
+						</InvoiceInfoConti>
 
-							<li>price (net):</li>
+						<div>
+							<table>
+								<thead>
+									<tr>
+										<th style={{width: '10%'}}>Nr</th>
+										<th style={{width: '40%'}}>description</th>
+										<th style={{width: '10%'}}>QTY</th>
+										<th style={{width: '20%'}}>price</th>
+										<th style={{width: '20%'}}>total</th>
+									</tr>
+								</thead>
+								<tbody>
+									{allForms.map((allForm, index) => (
+										<tr key={index}>
+											<td>{index}</td>
+											<td>{allForm.description}</td>
+											<td>{allForm.quantity}</td>
+											<td>{allForm.price}</td>
+											<td>{allForm.price * allForm.quantity} </td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
 
-							<li>VAT: {VAT}%</li>
+						<InvoiceTotalHolder>
+							<h2>Total: {totalPrice} EUR (net)</h2>
 
-							<li>QTY:</li>
-							<div>Subtotal</div>
-						</Wrapper>
+							<h2>
+								Total VAT {VAT}% : {totalVAT} EUR{' '}
+							</h2>
 
-						<>
-							{allForms.map((allForm, index) => (
-								<Wrapper key={index}>
-									<InvoiceServiceList>{index + 1}</InvoiceServiceList>
-									<InvoiceServiceList>{allForm.description}</InvoiceServiceList>
-									<InvoiceServiceList>{allForm.price} EUR</InvoiceServiceList>
-
-									<InvoiceServiceList>
-										{(allForm.VAT / 100) * allForm.price}EUR
-									</InvoiceServiceList>
-									<InvoiceServiceList>{allForm.quantity}</InvoiceServiceList>
-
-									<InvoiceServiceList>
-										{allForm.price * allForm.quantity}EUR
-									</InvoiceServiceList>
-								</Wrapper>
-							))}
-						</>
-
-						<Wrapper>
-							<div>{service}</div>
-							<div>{amount}</div>
-							<div>{quantity}</div>
-						</Wrapper>
-
-						<h5>Total: {totalPrice} EUR (net)</h5>
-						<h5>Total VAT: {totalVAT} EUR </h5>
-
-						<h5>Grand Total: {grandTotal} EUR</h5>
-
-						<DisplayPaymentInfo
-							bankName={bankName}
-							ibanNr={ibanNr}
-							paymentMethod={paymentMethod}
-						/>
+							<h2>Grand Total: {grandTotal} EUR</h2>
+						</InvoiceTotalHolder>
+						<div className="invoice__payment-holder">
+							<DisplayPaymentInfo
+								className="invoice__payment"
+								paymentMethod={paymentMethod}
+								bankName={bankName}
+								ibanNr={ibanNr}
+							/>
+						</div>
 					</div>
-				</Fragment>
+				</div>
 			) : (
-				<form
-					onSubmit={event => {
-						event.preventDefault();
-						setInvoice(true);
-					}}
-				>
+				<InputBody>
 					<Header />
-
-					<InputCard>
-						<h3>Your Data</h3>
-						<label htmlFor="name">Name*</label>
-						<input
-							type="text"
-							id="name"
-							name="name"
-							placeholder="e.g. Susan Baltimore"
-							value={name}
-							onChange={event => setName(event.target.value)}
-						/>
-						<label htmlFor="street">Street*</label>
-						<input
-							type="text"
-							id="street"
-							name="street"
-							placeholder="e.g. Filimore Street"
-							value={street}
-							onChange={event => setStreet(event.target.value)}
-						/>
-						<label htmlFor="name">City*</label>
-						<input
-							type="text"
-							id="city"
-							name="city"
-							placeholder="e.g. London"
-							value={city}
-							onChange={event => setCity(event.target.value)}
-						/>
-
-						<label htmlFor="name">Tax ID*</label>
-						<input
-							type="number"
-							id="taxID"
-							name="taxID"
-							placeholder="e.g. 34567890890"
-							value={taxID}
-							onChange={event => setTaxID(event.target.value)}
-						/>
-
-						<select
-							onChange={event => {
-								const {value} = event.target;
-								console.log(value);
-								setPaymentMethod(value);
+					<CenterElement>
+						<form
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								alignItems: 'center',
+								justifyContent: 'Center',
+							}}
+							onSubmit={event => {
+								event.preventDefault();
+								setInvoice(true);
 							}}
 						>
-							<option value="select">--select--</option>
-							<option value="bank">bank transfer</option>
-							<option value="cash">cash</option>
-						</select>
+							<InputCard auto>
+								<Service>
+									<h3>Your Data</h3>
+								</Service>
 
-						<CheckPaymentInfo
-							bankName={bankName}
-							ibanNr={ibanNr}
-							paymentMethod={paymentMethod}
-							handleBankNameChange={e => setBankName(e.target.value)}
-							handleIbanChange={e => setIbanNr(e.target.value)}
-						/>
-					</InputCard>
-
-					<InputCard>
-						<h3>Customer Data</h3>
-						<label htmlFor="recipientName">Name*</label>
-						<input
-							type="text"
-							id="recipientName"
-							name="recipientName"
-							placeholder="e.g. John Dylen"
-							value={recipientName}
-							onChange={event => setRecipientName(event.target.value)}
-						/>
-						<label htmlFor="recipientStreet">Street*</label>
-						<input
-							type="text"
-							id="recipientStreet"
-							name="recipientStreet"
-							placeholder="e.g. Som Street"
-							value={recipientStreet}
-							onChange={event => setRecipientStreet(event.target.value)}
-						/>
-						<label htmlFor="recipientCity">City*</label>
-						<input
-							type="text"
-							id="recipientCity"
-							name="recipientCity"
-							placeholder="e.g. Hamburg"
-							value={recipientCity}
-							onChange={event => setRecipientCity(event.target.value)}
-						/>
-					</InputCard>
-
-					<InputCard>
-						{' '}
-						<h3>Old Static Form / Your service </h3>
-						<label htmlFor="service">Description of your service/Item</label>
-						<input
-							type="text"
-							id="service"
-							name="service"
-							placeholder="Ux design"
-							value={service}
-							onChange={event => setService(event.target.value)}
-						/>
-						<label htmlFor="amount">price</label>
-						<input
-							type="number"
-							id="amount"
-							name="amount"
-							placeholder="amount in EUR"
-							value={amount}
-							onChange={event => setAmount(event.target.value)}
-						/>
-						<label htmlFor="amount">quantity</label>
-						<input
-							type="number"
-							id="quantity"
-							name="quantity"
-							placeholder="quantity in EUR"
-							value={quantity}
-							onChange={event => setQuantity(event.target.value)}
-						/>
-					</InputCard>
-
-					<article>
-						<div>
-							{allForms.map((form, index) => (
-								<ServiceForm
-									key={index}
-									form={form}
-									serviceNumber={index + 1}
-									onCancel={() => handleRemoveCard(index)}
-									onChange={(event, type) =>
-										handleInputChange(index, event, type)
-									}
+								<label htmlFor="name">Name*</label>
+								<InputField
+									type="text"
+									id="name"
+									name="name"
+									placeholder="e.g. Susan Baltimore"
+									value={name}
+									required
+									aria-autocomplete="off"
+									onChange={event => setName(event.target.value)}
 								/>
-							))}
-						</div>
-					</article>
+								<label htmlFor="street">Street*</label>
+								<InputField
+									type="text"
+									id="street"
+									name="street"
+									placeholder="e.g. Filimore Street"
+									value={street}
+									autoComplete="off"
+									onChange={event => setStreet(event.target.value)}
+								/>
+								<label htmlFor="name">City*</label>
+								<InputField
+									type="text"
+									id="city"
+									name="city"
+									placeholder="e.g. London"
+									value={city}
+									autoComplete="off"
+									onChange={event => setCity(event.target.value)}
+								/>
 
-					<h1>
-						<button type="button" onClick={() => handleAddForms()}>
-							Add more Service/Item
-						</button>
-					</h1>
-					<StyledButton type="submit">Submit</StyledButton>
-				</form>
+								<label htmlFor="taxID">Tax ID*</label>
+								<InputField
+									type="number"
+									id="taxID"
+									name="taxID"
+									placeholder="e.g. 34567890890"
+									value={taxID}
+									autoComplete="off"
+									onChange={event => setTaxID(event.target.value)}
+								/>
+								<label htmlFor="invoiceNr">Invoice Nr.*</label>
+								<InputField
+									type="number"
+									id="invoiceNr"
+									name="invoiceNr"
+									placeholder="1"
+									value={invoiceNr}
+									autoComplete="off"
+									onChange={event => setInvoiceNr(event.target.value)}
+								/>
+
+								<Wrapper>
+									<label htmlFor="select">Payment method:</label>
+									<select
+										defaultValue={paymentMethod}
+										onChange={event => {
+											const {value} = event.target;
+											console.log(value);
+											setPaymentMethod(value);
+										}}
+									>
+										<option value="bank transfer">bank transfer</option>
+										<option value="cash">cash</option>
+									</select>
+								</Wrapper>
+
+								<CheckPaymentInfo
+									bankName={bankName}
+									ibanNr={ibanNr}
+									paymentMethod={paymentMethod}
+									handleBankNameChange={e => setBankName(e.target.value)}
+									handleIbanChange={e => setIbanNr(e.target.value)}
+								/>
+							</InputCard>
+
+							<InputCard margin={'20px 20px'}>
+								<Service>
+									<h3>Customer Data</h3>
+								</Service>
+
+								<label htmlFor="recipientName">Name*</label>
+								<InputField
+									type="text"
+									id="recipientName"
+									name="recipientName"
+									placeholder="e.g. John Dylen"
+									value={recipientName}
+									autoComplete="off"
+									onChange={event => setRecipientName(event.target.value)}
+								/>
+								<label htmlFor="recipientStreet">Street*</label>
+								<InputField
+									type="text"
+									id="recipientStreet"
+									name="recipientStreet"
+									placeholder="e.g. Som Street"
+									value={recipientStreet}
+									autoComplete="off"
+									onChange={event => setRecipientStreet(event.target.value)}
+								/>
+								<label htmlFor="recipientCity">City*</label>
+								<InputField
+									type="text"
+									id="recipientCity"
+									name="recipientCity"
+									placeholder="e.g. Hamburg"
+									value={recipientCity}
+									autoComplete="off"
+									onChange={event => setRecipientCity(event.target.value)}
+								/>
+							</InputCard>
+
+							<article>
+								<div>
+									{allForms.map((form, index) => (
+										<ServiceForm
+											key={index}
+											form={form}
+											serviceNumber={index + 1}
+											onCancel={() => handleRemoveCard(index)}
+											onChange={(event, type) =>
+												handleInputChange(index, event, type)
+											}
+										/>
+									))}
+								</div>
+								<InputCard margin={'20px 20px'}>
+									<button type="button" onClick={() => handleAddForms()}>
+										Add more Service/Item
+									</button>
+									<StyledButton type="submit">Submit</StyledButton>{' '}
+								</InputCard>
+							</article>
+						</form>
+					</CenterElement>
+				</InputBody>
 			)}
-		</div>
+		</Fragment>
 	);
 }
 
@@ -325,60 +330,54 @@ function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 	const [price, setPrice] = useState(form.price);
 	const [quantity, setQuantity] = useState(form.quantity);
 	return (
-		<InputCard>
-			<Service>
-				<h4>Your service</h4>
-				<h4>{serviceNumber}</h4>
-			</Service>
-			<div>
-				<label htmlFor="description">Description of your service/Item</label>
-
+		<InputCard margin={'20px 20px'}>
+			<Wrapper>
+				<h3>{serviceNumber}</h3>
+				<h4>Your service </h4>
 				<div>
-					<InputField
-						type="text"
-						name="description"
-						placeholder="Enter description"
-						value={description}
-						onChange={event => {
-							setDescription(event.target.value);
-							onChange(event);
-						}}
-					/>
+					<button onClick={onCancel}>X</button>
 				</div>
+			</Wrapper>
+			<label htmlFor="description">Description of your service/Item</label>
 
-				<div>
-					<li>
-						<label htmlFor="description">Price</label>
-						<InputField
-							type="text"
-							name="price"
-							placeholder="Enter price"
-							value={price}
-							onChange={event => {
-								setPrice(event.target.value);
-								onChange(event, 'number');
-							}}
-						/>
-					</li>
-				</div>
-				<div>
-					<li>
-						<label htmlFor="description">Quantity</label>
-						<InputField
-							type="text"
-							name="quantity"
-							placeholder="Enter quantity"
-							value={quantity}
-							onChange={event => {
-								setQuantity(event.target.value);
-								onChange(event, 'number');
-							}}
-						/>
-					</li>
-				</div>
-			</div>
+			<InputField
+				type="text"
+				name="description"
+				placeholder="Enter description"
+				value={description}
+				autoComplete="off"
+				onChange={event => {
+					setDescription(event.target.value);
+					onChange(event);
+				}}
+			/>
 
-			<button onClick={onCancel}>Cancel</button>
+			<label htmlFor="description">Price</label>
+			<InputField
+				type="number"
+				step=".10"
+				name="price"
+				placeholder="Enter price"
+				value={price}
+				autoComplete="off"
+				onChange={event => {
+					setPrice(event.target.value);
+					onChange(event, 'number');
+				}}
+			/>
+
+			<label htmlFor="description">Quantity</label>
+			<InputField
+				type="number"
+				name="quantity"
+				placeholder="Enter quantity"
+				value={quantity}
+				autoComplete="off"
+				onChange={event => {
+					setQuantity(event.target.value);
+					onChange(event, 'number');
+				}}
+			/>
 		</InputCard>
 	);
 }
