@@ -9,8 +9,8 @@ const InputCard = styled.div`
 	border: 1px dotted black;
 	border-radius: 5px;
 	background-color: rgba(27, 36, 57, 1);
-	list-style: none;
 	color: white;
+	list-style: none;
 `;
 
 export default InputCard;

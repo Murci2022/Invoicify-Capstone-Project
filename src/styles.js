@@ -24,7 +24,6 @@ export const GlobalStyle = createGlobalStyle`
 		
 	}
 	a:hover {
-		
 		color:red;
 	}
 	.my__link {
@@ -49,23 +48,24 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 .paper {
-	background-color: #D3D3D3;
 	height: 90vh;
+	background-color: #D3D3D3;
+	
 }
 
 table {
+	width: 100%;
 	table-layout: fixed;
-  border-collapse: collapse;
-  width: 100%;
-  word-wrap: break-word;
+    border-collapse: collapse;
+    word-wrap: break-word;
 }
 
 th,
 td {
-  border: 1px solid #ffffff;
-  text-align: center;
-  padding: 8px;
+   padding: 8px;
+   border: 1px solid #fff;
   font-size: 1rem;
+  text-align: center;
   word-wrap: break-word;
 }
 
