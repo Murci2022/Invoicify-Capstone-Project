@@ -14,6 +14,7 @@ export const CheckPaymentInfo = ({
 				<div style={{marginTop: '30px', display: 'flex', flexDirection: 'column'}}>
 					<label htmlFor="bankName">Name of the Bank:</label>
 					<input
+						className="option"
 						value={bankName}
 						type="text"
 						id="bankName"
@@ -23,6 +24,7 @@ export const CheckPaymentInfo = ({
 					/>
 					<label htmlFor="ibanNr">IBAN:</label>
 					<input
+						className="option"
 						value={ibanNr}
 						type="text"
 						id="ibanNr"

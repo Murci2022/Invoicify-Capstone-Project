@@ -6,10 +6,13 @@ import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
 import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
 import Header from '../components/Header';
 import CenterElement from '../components/Positioning/CenterElement';
+import InputBody from '../components/Positioning/InputBody';
 import InputCard from '../components/Positioning/InputCard';
 import InputField from '../components/Positioning/InputField';
-import InvoiceFooterPayment from '../components/Positioning/InvoiceFooterPayment';
+import InvoiceButtonHolder from '../components/Positioning/InvoiceButtonHolder';
 import InvoiceInfoBlock from '../components/Positioning/InvoiceInfoBlock';
+import InvoiceInfoConti from '../components/Positioning/InvoiceInfoConti';
+import InvoiceTotalHolder from '../components/Positioning/InvoiceTotalHolder';
 import Service from '../components/Positioning/Service';
 import Wrapper from '../components/Positioning/Wrapper';
 
@@ -24,7 +27,7 @@ export default function CreateInvoice() {
 	const [street, setStreet] = useState('');
 	const [city, setCity] = useState('');
 	const [taxID, setTaxID] = useState('');
-	const [paymentMethod, setPaymentMethod] = useState('');
+	const [paymentMethod, setPaymentMethod] = useState('bank transfer');
 	const [ibanNr, setIbanNr] = useState('');
 	const [bankName, setBankName] = useState('');
 
@@ -78,64 +81,66 @@ export default function CreateInvoice() {
 	const grandTotal = totalPrice + totalVAT;
 
 	return (
-		<div>
+		<Fragment>
 			{invoice ? (
-				<Fragment>
-					<div>
+				<div>
+					<InvoiceButtonHolder>
 						<ReactToPrint
-							trigger={() => <button>Print out</button>}
+							trigger={() => <button className="invoice__btn">Print out</button>}
 							content={() => componentRef.current}
 						/>
 
-						<StyledButton onClick={() => setInvoice(false)}>Edit</StyledButton>
-					</div>
+						<button className="invoice__btn" onClick={() => setInvoice(false)}>
+							Edit
+						</button>
+					</InvoiceButtonHolder>
 
-					<div ref={componentRef}>
-						<div className="A4view">
-							<Wrapper>
-								<h4>Logo</h4>
-								<h4>InvoiceNr.{invoiceNr}</h4>
-							</Wrapper>
-							<Wrapper>
-								<InvoiceInfoBlock margin="10px">
-									<li>Name: {name}</li>
-									<li>Adress: {street}</li>
-									<li>City: {city}</li>
-									<li>TAX ID: {taxID}</li>
-								</InvoiceInfoBlock>
+					<div className="A4view" ref={componentRef}>
+						<div className="invoice__head">
+							<h4>Thank You!</h4>
+							<h4>InvoiceNr.{invoiceNr}</h4>
+						</div>
+						<InvoiceInfoConti>
+							<InvoiceInfoBlock>
+								<li>Name: {name}</li>
+								<li>Adress: {street}</li>
+								<li>City: {city}</li>
+								<li>TAX ID: {taxID}</li>
+							</InvoiceInfoBlock>
 
-								<InvoiceInfoBlock margin="10px">
-									<li>Name:{recipientName}</li>
-									<li>Adress:{recipientStreet}</li>
-									<li>City:{recipientCity}</li>
-								</InvoiceInfoBlock>
-							</Wrapper>
+							<InvoiceInfoBlock>
+								<li>Name:{recipientName}</li>
+								<li>Adress:{recipientStreet}</li>
+								<li>City:{recipientCity}</li>
+							</InvoiceInfoBlock>
+						</InvoiceInfoConti>
 
-							<div>
-								<table>
-									<thead>
-										<tr>
-											<th>Nr</th>
-											<th>description</th>
-											<th>QTY</th>
-											<th>price</th>
-											<th>total</th>
+						<div>
+							<table>
+								<thead>
+									<tr>
+										<th style={{width: '10%'}}>Nr</th>
+										<th style={{width: '40%'}}>description</th>
+										<th style={{width: '10%'}}>QTY</th>
+										<th style={{width: '20%'}}>price</th>
+										<th style={{width: '20%'}}>total</th>
+									</tr>
+								</thead>
+								<tbody>
+									{allForms.map((allForm, index) => (
+										<tr key={index}>
+											<td>{index}</td>
+											<td>{allForm.description}</td>
+											<td>{allForm.quantity}</td>
+											<td>{allForm.price}</td>
+											<td>{allForm.price * allForm.quantity} </td>
 										</tr>
-									</thead>
-									<tbody>
-										{allForms.map((allForm, index) => (
-											<tr key={index}>
-												<td>{index}</td>
-												<td>{allForm.description}</td>
-												<td>{allForm.quantity}</td>
-												<td>{allForm.price}</td>
-												<td>{allForm.price * allForm.quantity} </td>
-											</tr>
-										))}
-									</tbody>
-								</table>
-							</div>
+									))}
+								</tbody>
+							</table>
+						</div>
 
+						<InvoiceTotalHolder>
 							<h2>Total: {totalPrice} EUR (net)</h2>
 
 							<h2>
@@ -143,18 +148,17 @@ export default function CreateInvoice() {
 							</h2>
 
 							<h2>Grand Total: {grandTotal} EUR</h2>
-							<InvoiceFooterPayment>
-								<DisplayPaymentInfo
-									bankName={bankName}
-									ibanNr={ibanNr}
-									paymentMethod={paymentMethod}
-								/>
-							</InvoiceFooterPayment>
+						</InvoiceTotalHolder>
+						<div className="invoice__payment-holder">
+							<DisplayPaymentInfo
+								className="invoice__payment"
+								paymentMethod={paymentMethod}
+							/>
 						</div>
 					</div>
-				</Fragment>
+				</div>
 			) : (
-				<Fragment>
+				<InputBody>
 					<Header />
 					<CenterElement>
 						<form
@@ -162,7 +166,7 @@ export default function CreateInvoice() {
 								display: 'flex',
 								flexDirection: 'column',
 								alignItems: 'center',
-								justifyContetnt: 'Center',
+								justifyContent: 'Center',
 							}}
 							onSubmit={event => {
 								event.preventDefault();
@@ -181,6 +185,7 @@ export default function CreateInvoice() {
 									name="name"
 									placeholder="e.g. Susan Baltimore"
 									value={name}
+									required
 									onChange={event => setName(event.target.value)}
 								/>
 								<label htmlFor="street">Street*</label>
@@ -207,13 +212,15 @@ export default function CreateInvoice() {
 									type="number"
 									id="taxID"
 									name="taxID"
+									min="13"
+									max="13"
 									placeholder="e.g. 34567890890"
 									value={taxID}
 									onChange={event => setTaxID(event.target.value)}
 								/>
-								<label htmlFor="invoiceNr">Invoice Nr.:</label>
+								<label htmlFor="invoiceNr">Invoice Nr.*</label>
 								<InputField
-									type="invoiceNr"
+									type="number"
 									id="invoiceNr"
 									name="invoiceNr"
 									placeholder="1"
@@ -224,6 +231,7 @@ export default function CreateInvoice() {
 								<Wrapper>
 									<label htmlFor="select">Payment method:</label>
 									<select
+										defaultValue={paymentMethod}
 										onChange={event => {
 											const {value} = event.target;
 											console.log(value);
@@ -244,7 +252,7 @@ export default function CreateInvoice() {
 								/>
 							</InputCard>
 
-							<InputCard>
+							<InputCard margin={'20px 20px'}>
 								<Service>
 									<h3>Customer Data</h3>
 								</Service>
@@ -292,7 +300,7 @@ export default function CreateInvoice() {
 										/>
 									))}
 								</div>
-								<InputCard>
+								<InputCard margin={'20px 20px'}>
 									<button type="button" onClick={() => handleAddForms()}>
 										Add more Service/Item
 									</button>
@@ -301,9 +309,9 @@ export default function CreateInvoice() {
 							</article>
 						</form>
 					</CenterElement>
-				</Fragment>
+				</InputBody>
 			)}
-		</div>
+		</Fragment>
 	);
 }
 
@@ -312,7 +320,7 @@ function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 	const [price, setPrice] = useState(form.price);
 	const [quantity, setQuantity] = useState(form.quantity);
 	return (
-		<InputCard>
+		<InputCard margin={'20px 20px'}>
 			<Wrapper>
 				<h3>{serviceNumber}</h3>
 				<h4>Your service </h4>

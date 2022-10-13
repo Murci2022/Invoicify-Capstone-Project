@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const Nav = styled.div`
-	position: fixed;
 	display: flex;
+	position: fixed;
 	align-items: center;
 	justify-content: space-around;
 	width: 100%;

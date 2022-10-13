@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
 const InvoiceInfoBlock = styled.div`
-	border: 1px solid #ffffff;
-	text-align: left;
-	padding: 8px;
-	font-size: 32px;
-	background-color: rgb(213, 240, 255);
+	margin: 20px 0;
+	padding: 20px;
+	font-size: 16px;
 	list-style: none;
-	border: 1px solid black;
+	text-align: left;
 `;
 
 export default InvoiceInfoBlock;

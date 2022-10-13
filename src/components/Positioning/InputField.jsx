@@ -8,6 +8,8 @@ const InputField = styled.input`
 	padding: 5px;
 	border-bottom: 1px solid black;
 	font-size: 16px;
+	background-color: black;
+	color: white;
 `;
 
 export default InputField;
