@@ -155,6 +155,8 @@ export default function CreateInvoice() {
 							<DisplayPaymentInfo
 								className="invoice__payment"
 								paymentMethod={paymentMethod}
+								bankName={bankName}
+								ibanNr={ibanNr}
 							/>
 						</div>
 					</div>
@@ -175,7 +177,7 @@ export default function CreateInvoice() {
 								setInvoice(true);
 							}}
 						>
-							<InputCard>
+							<InputCard auto>
 								<Service>
 									<h3>Your Data</h3>
 								</Service>
@@ -188,6 +190,7 @@ export default function CreateInvoice() {
 									placeholder="e.g. Susan Baltimore"
 									value={name}
 									required
+									aria-autocomplete="off"
 									onChange={event => setName(event.target.value)}
 								/>
 								<label htmlFor="street">Street*</label>
@@ -197,6 +200,7 @@ export default function CreateInvoice() {
 									name="street"
 									placeholder="e.g. Filimore Street"
 									value={street}
+									autoComplete="off"
 									onChange={event => setStreet(event.target.value)}
 								/>
 								<label htmlFor="name">City*</label>
@@ -206,6 +210,7 @@ export default function CreateInvoice() {
 									name="city"
 									placeholder="e.g. London"
 									value={city}
+									autoComplete="off"
 									onChange={event => setCity(event.target.value)}
 								/>
 
@@ -214,10 +219,9 @@ export default function CreateInvoice() {
 									type="number"
 									id="taxID"
 									name="taxID"
-									min="13"
-									max="13"
 									placeholder="e.g. 34567890890"
 									value={taxID}
+									autoComplete="off"
 									onChange={event => setTaxID(event.target.value)}
 								/>
 								<label htmlFor="invoiceNr">Invoice Nr.*</label>
@@ -227,6 +231,7 @@ export default function CreateInvoice() {
 									name="invoiceNr"
 									placeholder="1"
 									value={invoiceNr}
+									autoComplete="off"
 									onChange={event => setInvoiceNr(event.target.value)}
 								/>
 
@@ -266,6 +271,7 @@ export default function CreateInvoice() {
 									name="recipientName"
 									placeholder="e.g. John Dylen"
 									value={recipientName}
+									autoComplete="off"
 									onChange={event => setRecipientName(event.target.value)}
 								/>
 								<label htmlFor="recipientStreet">Street*</label>
@@ -275,6 +281,7 @@ export default function CreateInvoice() {
 									name="recipientStreet"
 									placeholder="e.g. Som Street"
 									value={recipientStreet}
+									autoComplete="off"
 									onChange={event => setRecipientStreet(event.target.value)}
 								/>
 								<label htmlFor="recipientCity">City*</label>
@@ -284,6 +291,7 @@ export default function CreateInvoice() {
 									name="recipientCity"
 									placeholder="e.g. Hamburg"
 									value={recipientCity}
+									autoComplete="off"
 									onChange={event => setRecipientCity(event.target.value)}
 								/>
 							</InputCard>
@@ -337,6 +345,7 @@ function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 				name="description"
 				placeholder="Enter description"
 				value={description}
+				autoComplete="off"
 				onChange={event => {
 					setDescription(event.target.value);
 					onChange(event);
@@ -350,6 +359,7 @@ function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 				name="price"
 				placeholder="Enter price"
 				value={price}
+				autoComplete="off"
 				onChange={event => {
 					setPrice(event.target.value);
 					onChange(event, 'number');
@@ -362,6 +372,7 @@ function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 				name="quantity"
 				placeholder="Enter quantity"
 				value={quantity}
+				autoComplete="off"
 				onChange={event => {
 					setQuantity(event.target.value);
 					onChange(event, 'number');
