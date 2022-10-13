@@ -83,7 +83,7 @@ export default function CreateInvoice() {
 	return (
 		<Fragment>
 			{invoice ? (
-				<div>
+				<Fragment>
 					<InvoiceButtonHolder>
 						<ReactToPrint
 							trigger={() => (
@@ -160,7 +160,7 @@ export default function CreateInvoice() {
 							/>
 						</div>
 					</div>
-				</div>
+				</Fragment>
 			) : (
 				<InputBody>
 					<Header />
@@ -190,7 +190,6 @@ export default function CreateInvoice() {
 									placeholder="e.g. Susan Baltimore"
 									value={name}
 									required
-									aria-autocomplete="off"
 									onChange={event => setName(event.target.value)}
 								/>
 								<label htmlFor="street">Street*</label>

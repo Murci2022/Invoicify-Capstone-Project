@@ -4,7 +4,6 @@ const LandingPageContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	width: 100%;
 	max-width: 450px;
 	margin: 5px 5px 20px 5px;
 	padding: 20px;
