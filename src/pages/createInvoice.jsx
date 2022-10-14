@@ -3,6 +3,7 @@ import ReactToPrint from 'react-to-print';
 
 import StyledButton from '../components/Button/styled';
 import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
+import {DisplayInvoiceHead} from '../components/CreateInvoice/DisplayInvoiceHead';
 import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
 import {DisplayTable} from '../components/CreateInvoice/DisplayTable';
 import {DisplayTotal} from '../components/CreateInvoice/DisplayTotal';
@@ -99,10 +100,7 @@ export default function CreateInvoice() {
 					</InvoiceButtonHolder>
 
 					<div className="A4view" ref={componentRef}>
-						<div className="invoice__head">
-							<h4>Thank You!</h4>
-							<h4>InvoiceNr.{invoiceNr}</h4>
-						</div>
+						<DisplayInvoiceHead invoiceNr={invoiceNr} />
 						<InvoiceInfoConti>
 							<InvoiceInfoBlock>
 								<li>Name: {name}</li>
@@ -120,28 +118,6 @@ export default function CreateInvoice() {
 
 						<div>
 							<DisplayTable allForms={allForms} />
-							{/* <table>
-								<thead>
-									<tr>
-										<th style={{width: '10%'}}>Nr</th>
-										<th style={{width: '40%'}}>description</th>
-										<th style={{width: '10%'}}>QTY</th>
-										<th style={{width: '20%'}}>price</th>
-										<th style={{width: '20%'}}>total</th>
-									</tr>
-								</thead>
-								<tbody>
-									{allForms.map((allForm, index) => (
-										<tr key={index}>
-											<td>{index}</td>
-											<td>{allForm.description}</td>
-											<td>{allForm.quantity}</td>
-											<td>{allForm.price}</td>
-											<td>{allForm.price * allForm.quantity} </td>
-										</tr>
-									))}
-								</tbody>
-							</table> */}
 						</div>
 
 						<DisplayTotal
