@@ -4,6 +4,8 @@ import ReactToPrint from 'react-to-print';
 import StyledButton from '../components/Button/styled';
 import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
 import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
+import {DisplayTable} from '../components/CreateInvoice/DisplayTable';
+import {DisplayTotal} from '../components/CreateInvoice/DisplayTotal';
 import Header from '../components/Header';
 import CenterElement from '../components/Positioning/CenterElement';
 import InputBody from '../components/Positioning/InputBody';
@@ -12,7 +14,6 @@ import InputField from '../components/Positioning/InputField';
 import InvoiceButtonHolder from '../components/Positioning/InvoiceButtonHolder';
 import InvoiceInfoBlock from '../components/Positioning/InvoiceInfoBlock';
 import InvoiceInfoConti from '../components/Positioning/InvoiceInfoConti';
-import InvoiceTotalHolder from '../components/Positioning/InvoiceTotalHolder';
 import Service from '../components/Positioning/Service';
 import Wrapper from '../components/Positioning/Wrapper';
 
@@ -118,7 +119,8 @@ export default function CreateInvoice() {
 						</InvoiceInfoConti>
 
 						<div>
-							<table>
+							<DisplayTable allForms={allForms} />
+							{/* <table>
 								<thead>
 									<tr>
 										<th style={{width: '10%'}}>Nr</th>
@@ -139,18 +141,16 @@ export default function CreateInvoice() {
 										</tr>
 									))}
 								</tbody>
-							</table>
+							</table> */}
 						</div>
 
-						<InvoiceTotalHolder>
-							<h2>Total: {totalPrice} EUR (net)</h2>
+						<DisplayTotal
+							totalPrice={totalPrice}
+							totalVAT={totalVAT}
+							VAT={VAT}
+							grandTotal={grandTotal}
+						/>
 
-							<h2>
-								Total VAT {VAT}% : {totalVAT} EUR{' '}
-							</h2>
-
-							<h2>Grand Total: {grandTotal} EUR</h2>
-						</InvoiceTotalHolder>
 						<div className="invoice__payment-holder">
 							<DisplayPaymentInfo
 								className="invoice__payment"
