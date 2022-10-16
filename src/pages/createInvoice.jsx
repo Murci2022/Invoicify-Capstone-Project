@@ -86,6 +86,7 @@ export default function CreateInvoice() {
 		<Fragment>
 			{invoice ? (
 				<Fragment>
+
 					<InvoiceButtonHolder>
 						<ReactToPrint
 							trigger={() => (
@@ -126,7 +127,6 @@ export default function CreateInvoice() {
 							VAT={VAT}
 							grandTotal={grandTotal}
 						/>
-
 						<div className="invoice__payment-holder">
 							<DisplayPaymentInfo
 								className="invoice__payment"
@@ -136,7 +136,7 @@ export default function CreateInvoice() {
 							/>
 						</div>
 					</div>
-				</Fragment>
+				</div>
 			) : (
 				<InputBody>
 					<Header />

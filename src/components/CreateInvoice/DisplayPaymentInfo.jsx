@@ -2,7 +2,9 @@ import InvoicePaymentMethod from '../Positioning/InvoicePaymentMethod';
 import Wrapper from '../Positioning/Wrapper';
 
 export const DisplayPaymentInfo = ({bankName, ibanNr, paymentMethod}) => {
+
 	const ibanToUpperCase = ibanNr.toUpperCase();
+
 	if (paymentMethod === 'bank transfer') {
 		return (
 			<InvoicePaymentMethod>
@@ -13,6 +15,7 @@ export const DisplayPaymentInfo = ({bankName, ibanNr, paymentMethod}) => {
 				<Wrapper>
 					<h4>IBAN:</h4>
 					<h4>{ibanToUpperCase}</h4>
+
 				</Wrapper>
 			</InvoicePaymentMethod>
 		);
