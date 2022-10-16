@@ -85,8 +85,7 @@ export default function CreateInvoice() {
 	return (
 		<Fragment>
 			{invoice ? (
-				<Fragment>
-
+				<>
 					<InvoiceButtonHolder>
 						<ReactToPrint
 							trigger={() => (
@@ -136,7 +135,7 @@ export default function CreateInvoice() {
 							/>
 						</div>
 					</div>
-				</div>
+				</>
 			) : (
 				<InputBody>
 					<Header />

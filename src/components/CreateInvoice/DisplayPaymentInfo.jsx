@@ -1,8 +1,8 @@
+import CenterElement from '../Positioning/CenterElement';
 import InvoicePaymentMethod from '../Positioning/InvoicePaymentMethod';
 import Wrapper from '../Positioning/Wrapper';
 
 export const DisplayPaymentInfo = ({bankName, ibanNr, paymentMethod}) => {
-
 	const ibanToUpperCase = ibanNr.toUpperCase();
 
 	if (paymentMethod === 'bank transfer') {
@@ -15,11 +15,14 @@ export const DisplayPaymentInfo = ({bankName, ibanNr, paymentMethod}) => {
 				<Wrapper>
 					<h4>IBAN:</h4>
 					<h4>{ibanToUpperCase}</h4>
-
 				</Wrapper>
 			</InvoicePaymentMethod>
 		);
 	} else {
-		return <h4>Paying Cash</h4>;
+		return (
+			<CenterElement>
+				<h3>Paying Cash</h3>
+			</CenterElement>
+		);
 	}
 };
