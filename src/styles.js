@@ -8,9 +8,16 @@ export const GlobalStyle = createGlobalStyle`
 		box-sizing: border-box;
 	}
 
+	:root {
+		background: rgba(20, 26, 41, 1)
+		
+	}
+
 	html {
+		background-color: black;
 		font-family: 'Raleway', sans-serif;
 		font-size: 16px;
+		
 	}
 
 	body {
