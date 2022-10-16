@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 	html {
 		font-family: 'Raleway', sans-serif;
 		font-size: 16px;
+		
 	}
 
 	body {

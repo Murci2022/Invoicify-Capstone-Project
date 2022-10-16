@@ -3,7 +3,10 @@ import ReactToPrint from 'react-to-print';
 
 import StyledButton from '../components/Button/styled';
 import {CheckPaymentInfo} from '../components/CreateInvoice/CheckPaymentInfo';
+import {DisplayInvoiceHead} from '../components/CreateInvoice/DisplayInvoiceHead';
 import {DisplayPaymentInfo} from '../components/CreateInvoice/DisplayPaymentInfo';
+import {DisplayTable} from '../components/CreateInvoice/DisplayTable';
+import {DisplayTotal} from '../components/CreateInvoice/DisplayTotal';
 import Header from '../components/Header';
 import CenterElement from '../components/Positioning/CenterElement';
 import InputBody from '../components/Positioning/InputBody';
@@ -12,7 +15,6 @@ import InputField from '../components/Positioning/InputField';
 import InvoiceButtonHolder from '../components/Positioning/InvoiceButtonHolder';
 import InvoiceInfoBlock from '../components/Positioning/InvoiceInfoBlock';
 import InvoiceInfoConti from '../components/Positioning/InvoiceInfoConti';
-import InvoiceTotalHolder from '../components/Positioning/InvoiceTotalHolder';
 import Service from '../components/Positioning/Service';
 import Wrapper from '../components/Positioning/Wrapper';
 
@@ -83,7 +85,8 @@ export default function CreateInvoice() {
 	return (
 		<Fragment>
 			{invoice ? (
-				<div>
+				<Fragment>
+
 					<InvoiceButtonHolder>
 						<ReactToPrint
 							trigger={() => (
@@ -98,10 +101,7 @@ export default function CreateInvoice() {
 					</InvoiceButtonHolder>
 
 					<div className="A4view" ref={componentRef}>
-						<div className="invoice__head">
-							<h4>Thank You!</h4>
-							<h4>InvoiceNr.{invoiceNr}</h4>
-						</div>
+						<DisplayInvoiceHead invoiceNr={invoiceNr} />
 						<InvoiceInfoConti>
 							<InvoiceInfoBlock>
 								<li>Name: {name}</li>
@@ -118,39 +118,15 @@ export default function CreateInvoice() {
 						</InvoiceInfoConti>
 
 						<div>
-							<table>
-								<thead>
-									<tr>
-										<th style={{width: '10%'}}>Nr</th>
-										<th style={{width: '40%'}}>description</th>
-										<th style={{width: '10%'}}>QTY</th>
-										<th style={{width: '20%'}}>price</th>
-										<th style={{width: '20%'}}>total</th>
-									</tr>
-								</thead>
-								<tbody>
-									{allForms.map((allForm, index) => (
-										<tr key={index}>
-											<td>{index}</td>
-											<td>{allForm.description}</td>
-											<td>{allForm.quantity}</td>
-											<td>{allForm.price}</td>
-											<td>{allForm.price * allForm.quantity} </td>
-										</tr>
-									))}
-								</tbody>
-							</table>
+							<DisplayTable allForms={allForms} />
 						</div>
 
-						<InvoiceTotalHolder>
-							<h2>Total: {totalPrice} EUR (net)</h2>
-
-							<h2>
-								Total VAT {VAT}% : {totalVAT} EUR{' '}
-							</h2>
-
-							<h2>Grand Total: {grandTotal} EUR</h2>
-						</InvoiceTotalHolder>
+						<DisplayTotal
+							totalPrice={totalPrice}
+							totalVAT={totalVAT}
+							VAT={VAT}
+							grandTotal={grandTotal}
+						/>
 						<div className="invoice__payment-holder">
 							<DisplayPaymentInfo
 								className="invoice__payment"
@@ -190,7 +166,6 @@ export default function CreateInvoice() {
 									placeholder="e.g. Susan Baltimore"
 									value={name}
 									required
-									aria-autocomplete="off"
 									onChange={event => setName(event.target.value)}
 								/>
 								<label htmlFor="street">Street*</label>
