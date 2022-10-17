@@ -303,7 +303,7 @@ function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 					<button onClick={onCancel}>X</button>
 				</div>
 			</Wrapper>
-			<label htmlFor="description">Description of your service/Item</label>
+			<label htmlFor="description">Description</label>
 
 			<InputField
 				type="text"
