@@ -158,7 +158,7 @@ export default function CreateInvoice() {
 									type="text"
 									id="name"
 									name="name"
-									placeholder="e.g. Susan Baltimore"
+									placeholder="e.g. Sue Smith"
 									value={name}
 									required
 									onChange={event => setName(event.target.value)}
@@ -168,7 +168,7 @@ export default function CreateInvoice() {
 									type="text"
 									id="street"
 									name="street"
-									placeholder="e.g. Filimore Street"
+									placeholder="e.g. King Str. 6."
 									value={street}
 									autoComplete="off"
 									onChange={event => setStreet(event.target.value)}
@@ -245,7 +245,7 @@ export default function CreateInvoice() {
 									type="text"
 									id="recipientStreet"
 									name="recipientStreet"
-									placeholder="e.g. Som Street"
+									placeholder="e.g. Som Str. 7"
 									value={recipientStreet}
 									autoComplete="off"
 									onChange={event => setRecipientStreet(event.target.value)}
@@ -255,7 +255,7 @@ export default function CreateInvoice() {
 									type="text"
 									id="recipientCity"
 									name="recipientCity"
-									placeholder="e.g. Hamburg"
+									placeholder="e.g. Manchester"
 									value={recipientCity}
 									autoComplete="off"
 									onChange={event => setRecipientCity(event.target.value)}
