@@ -10,11 +10,11 @@ export const DisplayPaymentInfo = ({bankName, ibanNr, paymentMethod}) => {
 			<InvoicePaymentMethod>
 				<Wrapper>
 					<h4>Name of the Bank:</h4>
-					<h4>{bankName}</h4>
+					<h4> {bankName}</h4>
 				</Wrapper>
 				<Wrapper>
-					<h4>IBAN:</h4>
-					<h4>{ibanToUpperCase}</h4>
+					<h4>IBAN: </h4>
+					<h4> {ibanToUpperCase}</h4>
 				</Wrapper>
 			</InvoicePaymentMethod>
 		);
