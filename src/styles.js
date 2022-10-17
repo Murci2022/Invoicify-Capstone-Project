@@ -2,10 +2,17 @@ import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 
+    
+    
 	*,
 	*::before,
 	*::after {
 		box-sizing: border-box;
+	}
+
+	:root{
+		--background: rgba(20, 26, 41, 1);
+		--text-primary: #fff;
 	}
 
 	html {

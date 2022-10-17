@@ -93,12 +93,10 @@ export default function CreateInvoice() {
 							)}
 							content={() => componentRef.current}
 						/>
-
 						<button className="invoice__btn" onClick={() => setInvoice(false)}>
 							Edit
 						</button>
 					</InvoiceButtonHolder>
-
 					<div className="A4view" ref={componentRef}>
 						<DisplayInvoiceHead invoiceNr={invoiceNr} />
 						<InvoiceInfoConti>
@@ -108,7 +106,6 @@ export default function CreateInvoice() {
 								<li>City: {city}</li>
 								<li>TAX ID: {taxID}</li>
 							</InvoiceInfoBlock>
-
 							<InvoiceInfoBlock>
 								<li>Name:{recipientName}</li>
 								<li>Adress:{recipientStreet}</li>
@@ -156,7 +153,6 @@ export default function CreateInvoice() {
 								<Service>
 									<h3>Your Data</h3>
 								</Service>
-
 								<label htmlFor="name">Name*</label>
 								<InputField
 									type="text"
@@ -187,7 +183,6 @@ export default function CreateInvoice() {
 									autoComplete="off"
 									onChange={event => setCity(event.target.value)}
 								/>
-
 								<label htmlFor="taxID">Tax ID*</label>
 								<InputField
 									type="number"
@@ -208,7 +203,6 @@ export default function CreateInvoice() {
 									autoComplete="off"
 									onChange={event => setInvoiceNr(event.target.value)}
 								/>
-
 								<Wrapper>
 									<label htmlFor="select">Payment method:</label>
 									<select
@@ -223,7 +217,6 @@ export default function CreateInvoice() {
 										<option value="cash">cash</option>
 									</select>
 								</Wrapper>
-
 								<CheckPaymentInfo
 									bankName={bankName}
 									ibanNr={ibanNr}
@@ -232,7 +225,6 @@ export default function CreateInvoice() {
 									handleIbanChange={e => setIbanNr(e.target.value)}
 								/>
 							</InputCard>
-
 							<InputCard margin={'20px 20px'}>
 								<Service>
 									<h3>Customer Data</h3>
@@ -269,7 +261,6 @@ export default function CreateInvoice() {
 									onChange={event => setRecipientCity(event.target.value)}
 								/>
 							</InputCard>
-
 							<article>
 								<div>
 									{allForms.map((form, index) => (

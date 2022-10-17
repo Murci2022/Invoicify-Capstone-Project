@@ -11,6 +11,7 @@ const Nav = styled.div`
 	border: 1px solid black;
 	background-color: white;
 	color: black;
+	z-index: 10;
 	list-style: none;
 `;
 

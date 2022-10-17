@@ -7,7 +7,6 @@ const LandingPageContainer = styled.div`
 	max-width: 450px;
 	margin: 5px 5px 20px 5px;
 	padding: 20px;
-	color: white;
 	font-family: 'Raleway', sans-serif;
 	font-size: 1.2rem;
 	font-weight: 100;
