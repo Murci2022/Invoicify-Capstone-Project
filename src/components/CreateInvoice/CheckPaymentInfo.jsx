@@ -19,7 +19,7 @@ export const CheckPaymentInfo = ({
 						type="text"
 						id="bankName"
 						name="bankName"
-						placeholder="e .g. Bank og England"
+						placeholder="e .g. Bank of England"
 						onChange={handleBankNameChange}
 					/>
 					<label htmlFor="ibanNr">IBAN:</label>

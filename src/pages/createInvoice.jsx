@@ -93,12 +93,10 @@ export default function CreateInvoice() {
 							)}
 							content={() => componentRef.current}
 						/>
-
 						<button className="invoice__btn" onClick={() => setInvoice(false)}>
 							Edit
 						</button>
 					</InvoiceButtonHolder>
-
 					<div className="A4view" ref={componentRef}>
 						<DisplayInvoiceHead invoiceNr={invoiceNr} />
 						<InvoiceInfoConti>
@@ -108,7 +106,6 @@ export default function CreateInvoice() {
 								<li>City: {city}</li>
 								<li>TAX ID: {taxID}</li>
 							</InvoiceInfoBlock>
-
 							<InvoiceInfoBlock>
 								<li>Name:{recipientName}</li>
 								<li>Adress:{recipientStreet}</li>
@@ -156,13 +153,12 @@ export default function CreateInvoice() {
 								<Service>
 									<h3>Your Data</h3>
 								</Service>
-
 								<label htmlFor="name">Name*</label>
 								<InputField
 									type="text"
 									id="name"
 									name="name"
-									placeholder="e.g. Susan Baltimore"
+									placeholder="e.g. Sue Smith"
 									value={name}
 									required
 									onChange={event => setName(event.target.value)}
@@ -172,7 +168,7 @@ export default function CreateInvoice() {
 									type="text"
 									id="street"
 									name="street"
-									placeholder="e.g. Filimore Street"
+									placeholder="e.g. King Str. 6."
 									value={street}
 									autoComplete="off"
 									onChange={event => setStreet(event.target.value)}
@@ -187,7 +183,6 @@ export default function CreateInvoice() {
 									autoComplete="off"
 									onChange={event => setCity(event.target.value)}
 								/>
-
 								<label htmlFor="taxID">Tax ID*</label>
 								<InputField
 									type="number"
@@ -208,7 +203,6 @@ export default function CreateInvoice() {
 									autoComplete="off"
 									onChange={event => setInvoiceNr(event.target.value)}
 								/>
-
 								<Wrapper>
 									<label htmlFor="select">Payment method:</label>
 									<select
@@ -223,7 +217,6 @@ export default function CreateInvoice() {
 										<option value="cash">cash</option>
 									</select>
 								</Wrapper>
-
 								<CheckPaymentInfo
 									bankName={bankName}
 									ibanNr={ibanNr}
@@ -232,7 +225,6 @@ export default function CreateInvoice() {
 									handleIbanChange={e => setIbanNr(e.target.value)}
 								/>
 							</InputCard>
-
 							<InputCard margin={'20px 20px'}>
 								<Service>
 									<h3>Customer Data</h3>
@@ -253,7 +245,7 @@ export default function CreateInvoice() {
 									type="text"
 									id="recipientStreet"
 									name="recipientStreet"
-									placeholder="e.g. Som Street"
+									placeholder="e.g. Som Str. 7"
 									value={recipientStreet}
 									autoComplete="off"
 									onChange={event => setRecipientStreet(event.target.value)}
@@ -263,13 +255,12 @@ export default function CreateInvoice() {
 									type="text"
 									id="recipientCity"
 									name="recipientCity"
-									placeholder="e.g. Hamburg"
+									placeholder="e.g. Manchester"
 									value={recipientCity}
 									autoComplete="off"
 									onChange={event => setRecipientCity(event.target.value)}
 								/>
 							</InputCard>
-
 							<article>
 								<div>
 									{allForms.map((form, index) => (
@@ -312,7 +303,7 @@ function ServiceForm({form, onCancel, onChange, serviceNumber}) {
 					<button onClick={onCancel}>X</button>
 				</div>
 			</Wrapper>
-			<label htmlFor="description">Description of your service/Item</label>
+			<label htmlFor="description">Description</label>
 
 			<InputField
 				type="text"
